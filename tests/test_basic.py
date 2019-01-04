@@ -1,14 +1,29 @@
 from nose.plugins.skip import SkipTest
 from nose.tools import assert_raises, nottest
+import os.path
+from zipfile import ZipFile
 
-#@SkipTest
+from if2xlsx import Document
+
+INPUT_DIR = os.path.abspath(
+    os.path.join(os.path.split(__file__)[0],
+                 '..', 'input'))
+
+TEST_FILE = os.path.join(INPUT_DIR, "book.xlsx")
+
+
+# @SkipTest
 class TestBasic:
 
     def setUp(self):
-        pass
+        self.xl = Document(TEST_FILE)
 
-    def test_something(self):
-        assert 1 + 1 == 2
+    def test_zip_open(self):
+        assert isinstance(self.xl.stream, ZipFile)
+
+    def test_loadong_by_force(self):
+        self.xl.load()
+        assert self.xl.rels.xml is not None
 
     def tearDown(self):
         pass

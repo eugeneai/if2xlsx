@@ -148,6 +148,7 @@ class XlRels(DirRels):
                                     filename=rel.target)
                 setattr(target, 'sharedStrings', obj)
 
+            # TODO: calcChain, styles, theme
             self.ids[rel.id] = obj
 
 
@@ -211,3 +212,7 @@ class OfficeDocument(LazyLoader):
     def load(self):
         super(OfficeDocument, self).load()
         self.rels.register_attrs(self)
+
+    @property
+    def ws(self):
+        return self.worksheets

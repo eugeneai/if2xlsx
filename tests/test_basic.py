@@ -33,5 +33,10 @@ class TestBasic:
         self.xl.xl.load()
         assert self.xl.xl.rels.pretty() is not None
 
+    def test_ws_indexing(self):
+        self.xl.xl.load()
+        self.xl.xl.ws[0]
+        self.xl.xl.ws['sheet1']
+
     def tearDown(self):
         pass

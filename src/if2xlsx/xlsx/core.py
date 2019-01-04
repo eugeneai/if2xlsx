@@ -64,7 +64,7 @@ class LazyLoader(object):
 
 
 class DocumentProperties(LazyLoader):
-    """Object holding document ptoperties
+    """Object holding document properties
     """
 
     def register_property(self, name, filename):
@@ -174,6 +174,9 @@ class WorkSheet(LazyLoader):
     """Defines Worksheet"""
 
     def __init__(self,  stream, filename, document):
+        dfilename = document.filename
+        name = os.path.split(dfilename)[0]
+        filename = os.path.join(name, filename)
         super(WorkSheet, self).__init__(stream=stream, filename=filename)
         self.document = document
 

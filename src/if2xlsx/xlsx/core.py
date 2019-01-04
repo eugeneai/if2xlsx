@@ -193,8 +193,12 @@ class WorkSheets(OrderedDict):
         name, ext = os.path.splitext(nameext)
         self[name] = sheet
         self[self.counter] = sheet
+        # print(self.counter, name)
         self.counter += 1
         return sheet
+
+    def __len__(self):
+        return super(WorkSheets, self).__len__() >> 1
 
 
 class SharedStrings(OrderedDict, LazyLoader):

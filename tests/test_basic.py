@@ -43,7 +43,7 @@ class TestBasic:
         self.xl.xl.ws[0]
         w = self.xl.xl.ws['sheet1']
         w.load()
-        w.pretty()
+        # w.pretty()
 
     def tearDown(self):
         pass
@@ -59,4 +59,8 @@ class TestInterface:
         assert IDocument.providedBy(self.doc)
 
     def test_wb_name(self):
-        wb = self.doc.ws['sheet1']
+        assert len(self.doc.ws) == 3
+        wb1 = self.doc.ws['sheet1']
+        wb2 = self.doc.ws[0]
+        # print(wb1.name, wb2.name)
+        # assert wb1.name == wb2.name

@@ -45,9 +45,6 @@ ADAPTER_REGISTERED = False
 def register_adapters():
     global ADAPTER_REGISTERED
 
-    import pudb
-    pu.db
-
     if ADAPTER_REGISTERED:
         return
 

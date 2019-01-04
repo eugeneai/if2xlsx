@@ -1,1 +1,1 @@
-from .core import Document
+from .core import Document, OfficeDocument, WorkSheet, WorkSheets

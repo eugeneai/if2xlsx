@@ -4,13 +4,13 @@
 #   * `Python Project Howto <http://infinitemonkeycorps.net/docs/pph/>`_
 
 from setuptools import setup, find_packages
-import sys, os
+import sys
+import os
 #from Cython.Build import cythonize
 from setuptools.extension import Extension
 
 here = os.path.abspath(os.path.dirname(__file__))
-README = open(os.path.join(here, 'README.rst')).read()
-NEWS = open(os.path.join(here, 'NEWS.rst')).read()
+README = open(os.path.join(here, 'README.md')).read()
 
 
 version = '0.1'
@@ -35,29 +35,29 @@ dev_requires = [
 
 dependency_links = [
     # Sources for some fixed versions packages
-    #'https://github.com/<user1>/<package1>/archive/master.zip#egg=<package1>-0.1',
-    #'https://github.com/<user2>/<package2>/archive/master.zip#egg=<package2>-0.3.0',
+    # 'https://github.com/<user1>/<package1>/archive/master.zip#egg=<package1>-0.1',
+    # 'https://github.com/<user2>/<package2>/archive/master.zip#egg=<package2>-0.3.0',
 ]
 
-#Cython extension
+# Cython extension
 
-#TOP_DIR="/home/eugeneai/Development/codes/NLP/workprog/tmp/link-grammar"
-#LG_DIR="link-grammar"
-#LG_LIB_DIR=os.path.join(TOP_DIR,LG_DIR,".libs")
-#LG_HEADERS=os.path.join(TOP_DIR)
+# TOP_DIR="/home/eugeneai/Development/codes/NLP/workprog/tmp/link-grammar"
+# LG_DIR="link-grammar"
+# LG_LIB_DIR=os.path.join(TOP_DIR,LG_DIR,".libs")
+# LG_HEADERS=os.path.join(TOP_DIR)
 
-ext_modules=[
-#    Extension("if2xlsx.cython_module",
-#              sources=["src/./if2xlsx/cython_module.pyx"],
-#              libraries=["gdal"],
-#    )
+ext_modules = [
+    #    Extension("if2xlsx.cython_module",
+    #              sources=["src/./if2xlsx/cython_module.pyx"],
+    #              libraries=["gdal"],
+    #    )
 ]
 
 setup(
     name='if2xlsx',
     version=version,
     description="Interface module for XLSX",
-    long_description=README + '\n\n' + NEWS,
+    long_description=README,
     # Get classifiers from http://pypi.python.org/pypi?%3Aaction=list_classifiers
     # classifiers=[c.strip() for c in """
     #     Development Status :: 4 - Beta
@@ -75,13 +75,13 @@ setup(
     url='https://github.com/eugeneai/if2xlsx',
     license='GPL-V3.0',
     packages=find_packages("src"),
-    package_dir = {'': "src"},    include_package_data=True,
+    package_dir={'': "src"},    include_package_data=True,
     zip_safe=False,
     install_requires=install_requires,
-    dependency_links = dependency_links,
+    dependency_links=dependency_links,
     extras_require={
-          'tests': tests_requires,
-          'dev': dev_requires,
+        'tests': tests_requires,
+        'dev': dev_requires,
     },
     test_suite='tests',
     entry_points={
@@ -90,5 +90,5 @@ setup(
     },
     #ext_modules = cythonize(ext_modules),
     #test_suite = 'nose.collector',
-    #setup_requires=['nose>=1.0','Cython','coverage']
+    # setup_requires=['nose>=1.0','Cython','coverage']
 )

@@ -13,7 +13,7 @@ INPUT_DIR = os.path.abspath(
 
 TEST_FILE = os.path.join(INPUT_DIR, "book.xlsx")
 
-register_adapters()
+# register_adapters()
 
 # @SkipTest
 

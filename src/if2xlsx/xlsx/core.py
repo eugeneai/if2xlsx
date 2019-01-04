@@ -1,7 +1,7 @@
 from zipfile import ZipFile
 #from abc import ABC, abstractmethod
 from lxml import etree
-from collections import OrderedDict
+from collections import OrderedDict, namedtuple
 import os.path
 
 NS = {
@@ -14,7 +14,7 @@ class LazyLoader(object):
 
     __filename__ = None
 
-    def __init__(self, stream=None, mode='r', filename=None):
+    def __init__(self, stream=None, filename=None, mode='r'):
         """Initialize and open file of Excel Document"""
         if not isinstance(stream, ZipFile):
             stream = ZipFile(stream, mode=mode)
@@ -77,17 +77,27 @@ class Rels(LazyLoader):
     """Loader for _rels/.rels-file of a XLSX file
 
     """
-    __filename__ = '_rels/.rels'
 
     def register_attrs(self, target):
         self.load()
-        for node in self.xpath("/rel:Relationships/rel:Relationship"):
-            a = node.attrib
-            id = a['Id']
-            t = a['Type']
-            filename = a['Target']
-            props = DocumentProperties(self.stream)
 
+
+Relationship = namedtuple('Relationship', ['id', 'type', 'target'])
+
+
+class DocumentRels(Rels):
+
+    __filename__ = '_rels/.rels'
+
+    def register_attrs(self, target):
+        super(DocumentRels, self).register_attrs(target)
+
+        props = DocumentProperties(self.stream)
+        setattr(target, 'props', props)
+
+        for rel in self.relations():
+            t = rel.type
+            filename = rel.target
             if t.endswith("-properties"):
                 _, propfile = os.path.split(filename)
                 name, ext = os.path.splitext(propfile)
@@ -98,7 +108,35 @@ class Rels(LazyLoader):
                 obj = OfficeDocument(self.stream, filename=filename)
                 setattr(target, name, obj)
 
-            self.ids[id] = obj
+            self.ids[rel.id] = obj
+
+    def relations(self):
+        for node in self.xpath("/rel:Relationships/rel:Relationship"):
+            a = node.attrib
+            id = a['Id']
+            type = a['Type']
+            target = a['Target']
+            yield Relationship(id=id, type=type, target=target)
+
+
+class DirRels(Rels):
+    def __init__(self, stream, relative_to):
+        pfilename = relative_to.filename
+        name = os.path.split(pfilename)[0]
+        filename = os.path.join(name,
+                                self.__class__.__filename__, )
+        super(DirRels, self).__init__(stream=stream,
+                                      filename=filename)
+
+
+class XlRels(DirRels):
+
+    __filename__ = "_rels/workbook.xml.rels"
+
+
+class WsRels(DirRels):
+
+    __filename__ = "_rels/*"
 
 
 class Document(LazyLoader):
@@ -108,7 +146,7 @@ class Document(LazyLoader):
 
     def struct(self):
         """Lazy load structures into memory"""
-        self.rels = Rels(self.stream)
+        self.rels = DocumentRels(self.stream)
 
     def load(self):
         self.rels.register_attrs(self)
@@ -117,3 +155,10 @@ class Document(LazyLoader):
 class OfficeDocument(LazyLoader):
     """Defines list of workbooks
     """
+
+    def struct(self):
+        self.rels = XlRels(self.stream, relative_to=self)
+
+    def load(self):
+        super(OfficeDocument, self).load()
+        self.rels.register_attrs(self)

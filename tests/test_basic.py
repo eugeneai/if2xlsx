@@ -25,8 +25,13 @@ class TestBasic:
     def test_loading_by_force(self):
         assert self.xl.rels.xml is not None
 
+    def test_xl(self):
+        assert hasattr(self.xl, 'xl')
+        assert self.xl.xl is not None
+
     def test_pretty(self):
-        assert self.xl.rels.pretty() is not None
+        self.xl.xl.rels.load()
+        assert self.xl.xl.rels.pretty() is not None
 
     def tearDown(self):
         pass

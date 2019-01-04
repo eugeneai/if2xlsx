@@ -17,13 +17,16 @@ class TestBasic:
 
     def setUp(self):
         self.xl = Document(TEST_FILE)
+        self.xl.load()
 
     def test_zip_open(self):
         assert isinstance(self.xl.stream, ZipFile)
 
-    def test_loadong_by_force(self):
-        self.xl.load()
+    def test_loading_by_force(self):
         assert self.xl.rels.xml is not None
+
+    def test_pretty(self):
+        assert self.xl.rels.pretty() is not None
 
     def tearDown(self):
         pass

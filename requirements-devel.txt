@@ -1,3 +1,5 @@
 nose
 -r requirements.txt
 pudb
+
+-e .

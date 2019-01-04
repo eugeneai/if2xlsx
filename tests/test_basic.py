@@ -4,6 +4,8 @@ import os.path
 from zipfile import ZipFile
 
 from if2xlsx import Document
+from if2xlsx.interfaces import IDocument
+from if2xlsx.iface import register_adapters
 
 INPUT_DIR = os.path.abspath(
     os.path.join(os.path.split(__file__)[0],
@@ -11,8 +13,11 @@ INPUT_DIR = os.path.abspath(
 
 TEST_FILE = os.path.join(INPUT_DIR, "book.xlsx")
 
+register_adapters()
 
 # @SkipTest
+
+
 class TestBasic:
 
     def setUp(self):
@@ -42,3 +47,13 @@ class TestBasic:
 
     def tearDown(self):
         pass
+
+
+class TestBasic:
+
+    def setUp(self):
+        self.xldoc = Document(TEST_FILE)
+        self.doc = IDocument(self.xldoc)
+
+    def test_document_interface(self):
+        assert IDocument.providedBy(self.doc)

@@ -12,14 +12,14 @@ class LazyLoader(object):
         """Initialize and open file of Excel Document"""
         if not isinstance(stream, ZipFile):
             stream = ZipFile(stream, mode=mode)
-        self._stream = stream
+        self.stream = stream
         if filename is None:
             filename = self.__class__.__filename__
-        self._filename = filename
-        self._xml = None
-        self._def_structs()
+        self.filename = filename
+        self.xml = None
+        self.struct()
 
-    def _def_structs(self):
+    def struct(self):
         """Define object structures reflecting
         XLSX file structures"""
 
@@ -27,23 +27,19 @@ class LazyLoader(object):
         """Lazy load structures into memory.
         By default load it as XML,
         supposing filename field to exist"""
-        if self._filename:
-            self._xml = self.load_xml(self._filename)
+        if self.filename:
+            self.xml = self.load_xml(self.filename)
 
     def open(self, name, mode='r'):
         """Helper function for initiating file streams
         by names."""
-        return self._stream.open(name=name, mode=mode, force_zip64=True)
+        return self.stream.open(name=name, mode=mode, force_zip64=True)
 
     def load_xml(self, name):
         """Read ZipFile File as lxml etree XML"""
         i = self.open(name)
-        self._xml = etree.parse(i)
-        return self._xml
-
-    @property
-    def xml(self):
-        return self._xml
+        self.xml = etree.parse(i)
+        return self.xml
 
 
 class Rels(LazyLoader):
@@ -58,7 +54,9 @@ class Document(LazyLoader):
     a scratch file.
     """
 
-    def _def_structs(self):
+    def struct(self):
         """Lazy load structures into memory"""
-        self.rels = Rels(self._stream)
+        self.rels = Rels(self.stream)
+
+    def load(self):
         self.rels.load()

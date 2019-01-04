@@ -30,7 +30,7 @@ class TestBasic:
         assert self.xl.xl is not None
 
     def test_pretty(self):
-        self.xl.xl.rels.load()
+        self.xl.xl.load()
         assert self.xl.xl.rels.pretty() is not None
 
     def tearDown(self):

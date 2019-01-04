@@ -81,6 +81,14 @@ class Rels(LazyLoader):
     def register_attrs(self, target):
         self.load()
 
+    def relations(self):
+        for node in self.xpath("/rel:Relationships/rel:Relationship"):
+            a = node.attrib
+            id = a['Id']
+            type = a['Type']
+            target = a['Target']
+            yield Relationship(id=id, type=type, target=target)
+
 
 Relationship = namedtuple('Relationship', ['id', 'type', 'target'])
 
@@ -110,14 +118,6 @@ class DocumentRels(Rels):
 
             self.ids[rel.id] = obj
 
-    def relations(self):
-        for node in self.xpath("/rel:Relationships/rel:Relationship"):
-            a = node.attrib
-            id = a['Id']
-            type = a['Type']
-            target = a['Target']
-            yield Relationship(id=id, type=type, target=target)
-
 
 class DirRels(Rels):
     def __init__(self, stream, relative_to):
@@ -132,6 +132,23 @@ class DirRels(Rels):
 class XlRels(DirRels):
 
     __filename__ = "_rels/workbook.xml.rels"
+
+    def register_attrs(self, target):
+        super(DirRels, self).register_attrs(target)
+        ws = WorkSheets()
+        setattr(target, 'worksheets', ws)
+        for rel in self.relations():
+            t = os.path.split(rel.type)[-1]
+            if t == "worksheet":
+                obj = WorkSheet(
+                    self.stream, filename=rel.target, document=target)
+                ws.add(obj)
+            elif t == "sharedStrings":
+                obj = SharedStrings(self.stream,
+                                    filename=rel.target)
+                setattr(target, 'sharedStrings', obj)
+
+            self.ids[rel.id] = obj
 
 
 class WsRels(DirRels):
@@ -150,6 +167,38 @@ class Document(LazyLoader):
 
     def load(self):
         self.rels.register_attrs(self)
+
+
+class WorkSheet(LazyLoader):
+    """Defines Worksheet"""
+
+    def __init__(self,  stream, filename, document):
+        super(WorkSheet, self).__init__(stream=stream, filename=filename)
+        self.document = document
+
+
+class WorkSheets(OrderedDict):
+    """Worksheet list"""
+
+    def __init__(self, *args, **kw):
+        super(WorkSheets, self).__init__(*args, **kw)
+        self.counter = 0
+
+    def add(self, sheet):
+        nameext = os.path.split(sheet.filename)[-1]
+        name, ext = os.path.splitext(nameext)
+        self[name] = sheet
+        self[self.counter] = sheet
+        self.counter += 1
+        return sheet
+
+
+class SharedStrings(OrderedDict, LazyLoader):
+    """Shared strings holder"""
+
+    def __init__(self,  stream, filename):
+        OrderedDict.__init__(self)
+        LazyLoader.__init__(self, stream=stream, filename=filename)
 
 
 class OfficeDocument(LazyLoader):

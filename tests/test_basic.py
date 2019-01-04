@@ -19,7 +19,7 @@ class TestBasic:
         self.xl = Document(TEST_FILE)
 
     def test_zip_open(self):
-        assert isinstance(self.xl.stream, ZipFile)
+        assert isinstance(self.xl._stream, ZipFile)
 
     def test_loadong_by_force(self):
         self.xl.load()

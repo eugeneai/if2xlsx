@@ -49,7 +49,7 @@ class TestBasic:
         pass
 
 
-class TestBasic:
+class TestInterface:
 
     def setUp(self):
         self.xldoc = Document(TEST_FILE)
@@ -57,3 +57,6 @@ class TestBasic:
 
     def test_document_interface(self):
         assert IDocument.providedBy(self.doc)
+
+    def test_wb_name(self):
+        wb = self.doc.ws['sheet1']

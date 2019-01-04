@@ -26,6 +26,7 @@ class DocumentToIDocumentAdapter(object):
 
     @property
     def ws(self):
+        self.xl.load()        # NOTE: This might happened in constructor.
         return IWorkSheets(self.xl.ws)
 
 

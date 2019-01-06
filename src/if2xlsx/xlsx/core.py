@@ -10,7 +10,6 @@ NS = {
     "rel": "http://schemas.openxmlformats.org/package/2006/relationships",
 }
 
-
 ZIP_COMPRESSION_LEVEL = 5
 
 
@@ -43,7 +42,7 @@ class LazyLoader(object):
 
     @property
     def state(self):
-        self.root.zipparts[self.filename]
+        return self.root.root.zipparts[self.filename]
 
     @property
     def changed(self):
@@ -51,7 +50,9 @@ class LazyLoader(object):
 
     @changed.setter
     def set_changed(self, value):
-        self.state.changed = value
+        s = self.state
+        assert s.obj == self
+        s.changed = value
 
     def invalidate(self):
         self.changed = True
@@ -70,8 +71,15 @@ class LazyLoader(object):
         supposing filename field to exist"""
         if self.loaded:
             return
-        if self.filename:
+        if self.filename is not None:
+            self._register_at_root()
             self.xml = self.load_xml(self.filename)
+            self.state.loaded = True
+
+    def _register_at_root(self):
+        """Registers itself as ZipFile content negotiator."""
+        s = self.state
+        s.obj = self
 
     def open(self, name, mode='r'):
         """Helper function for initiating file streams
@@ -88,12 +96,14 @@ class LazyLoader(object):
         """Return the content as a part of ZipFile, bytes.
         By default just serialize XML"""
         if self.xml is not None:
-            return etree.tostring(self.xml, encoding='utf-8', xml_declaration=True, inclusive_ns_prefixes=True)
+            return etree.tostring(
+                self.xml,
+                encoding='utf-8',
+                xml_declaration=True,
+                inclusive_ns_prefixes=True)
 
     def pretty(self, noprint=False):
-        answer = etree.tostring(self.xml,
-                                encoding=str,
-                                pretty_print=True)
+        answer = etree.tostring(self.xml, encoding=str, pretty_print=True)
         if not noprint:
             print(answer)
         return answer
@@ -162,10 +172,11 @@ class DirRels(Rels):
     def __init__(self, root, relative_to):
         pfilename = relative_to.filename
         name = os.path.split(pfilename)[0]
-        filename = os.path.join(name,
-                                self.__class__.__filename__, )
-        super(DirRels, self).__init__(root=root,
-                                      filename=filename)
+        filename = os.path.join(
+            name,
+            self.__class__.__filename__,
+        )
+        super(DirRels, self).__init__(root=root, filename=filename)
 
 
 class XlRels(DirRels):
@@ -183,8 +194,7 @@ class XlRels(DirRels):
                     self.root, filename=rel.target, document=target)
                 ws.add(obj)
             elif t == "sharedStrings":
-                obj = SharedStrings(self.root,
-                                    filename=rel.target)
+                obj = SharedStrings(self.root, filename=rel.target)
                 setattr(target, 'sharedStrings', obj)
 
             # TODO: calcChain, styles, theme
@@ -230,7 +240,7 @@ class WorkSheets(OrderedDict):
 class SharedStrings(OrderedDict, LazyLoader):
     """Shared strings holder"""
 
-    def __init__(self,  root, filename):
+    def __init__(self, root, filename):
         OrderedDict.__init__(self)
         LazyLoader.__init__(self, root=root, filename=filename)
 
@@ -251,8 +261,25 @@ class OfficeDocument(LazyLoader):
         return self.worksheets
 
 
-FileState = namedtuple(
-    "FileState", ['name', 'obj', 'loaded', 'changed', 'deleted'])
+FileState = namedtuple("FileState",
+                       ['name', 'obj', 'loaded', 'changed', 'deleted'])
+
+
+class FileState(object):
+    """Defines some flags for ZipExtFile parts state.
+    """
+
+    def __init__(self,
+                 name,
+                 obj=None,
+                 loaded=False,
+                 changed=False,
+                 deleted=False):
+        self.name = name
+        self.obj = obj
+        self.loaded = loaded
+        self.changed = changed
+        self.deleted = deleted
 
 
 class Document(LazyLoader):
@@ -272,8 +299,9 @@ class Document(LazyLoader):
 
         super(Document, self).__init__(root=root, filename=filename, mode=mode)
 
-        self.zipparts = dict(zip(stream.namelist(), cycle(
-            [FileState(None, None, False, False, False)])))
+        self.zipparts = dict(
+            zip(stream.namelist(),
+                cycle([FileState(None, None, False, False, False)])))
         # print(self.zipparts)
 
     def struct(self):
@@ -285,13 +313,27 @@ class Document(LazyLoader):
 
     def save(self, filename):
         """Save ZipFile as Excel file copy with content changed."""
-        o = ZipFile(filename, mode='w',
-                    compression=ZIP_DEFLATED, compresslevel=ZIP_COMPRESSION_LEVEL)
+        o = ZipFile(
+            filename,
+            mode='w',
+            compression=ZIP_DEFLATED,
+            compresslevel=ZIP_COMPRESSION_LEVEL)
         i = self.root.stream
-        for comp_name in self.zipparts.keys():
-            cin = i.open(comp_name)
+        zpp = self.zipparts
+        for comp_name in zpp.keys():
+            content = None
+            zc = zpp[comp_name]
+            if zc.changed:
+                content = zc.obj.content()
+                cin = None
+            else:
+                cin = i.open(comp_name)
             cout = o.open(comp_name, mode='w', force_zip64=True)
-            cout.write(cin.read())  # FIXME: Do it with finite size buffer
+            if content is not None:
+                cout.write(content)  # FIXME: Do it with finite size buffer
+            else:
+                cout.write(cin.read())  # FIXME: Do it with finite size buffer
             cout.close()
-            cin.close()
+            if cin is not None:
+                cin.close()
         o.close()

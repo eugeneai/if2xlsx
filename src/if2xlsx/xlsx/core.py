@@ -45,6 +45,10 @@ class LazyLoader(object):
     def set_changed(self, value):
         self.changed = value
 
+    @property
+    def stream(self):
+        return self.root.stream
+
     def struct(self):
         """Define object structures reflecting
         XLSX file structures"""
@@ -61,7 +65,7 @@ class LazyLoader(object):
     def open(self, name, mode='r'):
         """Helper function for initiating file streams
         by names."""
-        return self.root.stream.open(name=name, mode=mode, force_zip64=True)
+        return self.stream.open(name=name, mode=mode, force_zip64=True)
 
     def load_xml(self, name):
         """Read ZipFile File as lxml etree XML"""
@@ -178,7 +182,7 @@ class WsRels(DirRels):
 class WorkSheet(LazyLoader):
     """Defines Worksheet"""
 
-    def __init__(self,  foot, filename, document):
+    def __init__(self, root, filename, document):
         dfilename = document.filename
         name = os.path.split(dfilename)[0]
         filename = os.path.join(name, filename)

@@ -19,6 +19,8 @@ TEST_FILE = os.path.join(INPUT_DIR, "book.xlsx")
 
 OUT_FILE = os.path.join(OUTPUT_DIR, "book-copy.xlsx")
 
+OUT_FILE_TEMPLATE = os.path.join(OUTPUT_DIR, "book-{}.xlsx")
+
 # register_adapters()
 
 # @SkipTest
@@ -80,5 +82,27 @@ class TestGeneralWriting(object):
         self.xldoc = Document(TEST_FILE)
 
     def test_direct_write(self):
-        print(OUT_FILE)
-        self.xldoc.save(OUT_FILE)
+        self.xldoc.save(OUT_FILE_TEMPLATE.format('copy'))
+
+    def test_direct_save_but_all_changes_by_force(self):
+        xl = self.xldoc
+        self.doc = IDocument(self.xldoc)
+
+        wb1 = self.doc.ws['sheet1']
+        wb2 = self.doc.ws[2]
+        wb2 = self.doc.ws[1]
+        wb2 = self.doc.ws[0]
+
+        wb2.context.load()
+
+        for pname, part in xl.zipparts.items():
+            if part.obj is not None:
+                part.obj.load()
+                part.obj.invalidate()
+                assert(xl.zipparts[pname].obj == part.obj)
+                assert(part.obj is not None)
+                assert(pname == part.obj.filename)
+                assert(part.obj.changed)
+                assert part.obj.loaded, part.obj.filename
+
+        self.xldoc.save(OUT_FILE_TEMPLATE.format('imposed'))

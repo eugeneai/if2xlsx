@@ -49,7 +49,7 @@ class LazyLoader(object):
         return self.state.changed
 
     @changed.setter
-    def set_changed(self, value):
+    def changed(self, value):
         s = self.state
         assert s.obj == self
         s.changed = value
@@ -78,8 +78,7 @@ class LazyLoader(object):
 
     def _register_at_root(self):
         """Registers itself as ZipFile content negotiator."""
-        s = self.state
-        s.obj = self
+        s = self.state.register(self)
 
     def open(self, name, mode='r'):
         """Helper function for initiating file streams
@@ -270,16 +269,22 @@ class FileState(object):
     """
 
     def __init__(self,
-                 name,
+                 filename,
+                 name=None,
                  obj=None,
                  loaded=False,
                  changed=False,
                  deleted=False):
+        self.filename = filename
         self.name = name
         self.obj = obj
         self.loaded = loaded
         self.changed = changed
         self.deleted = deleted
+
+    def register(self, obj):
+        assert obj.filename == self.filename
+        self.obj = obj
 
 
 class Document(LazyLoader):
@@ -299,9 +304,10 @@ class Document(LazyLoader):
 
         super(Document, self).__init__(root=root, filename=filename, mode=mode)
 
-        self.zipparts = dict(
-            zip(stream.namelist(),
-                cycle([FileState(None, None, False, False, False)])))
+        zpp = self.zipparts = {}
+        for filename in stream.namelist():
+            zpp[filename] = FileState(filename, None,
+                                      None, False, False, False)
         # print(self.zipparts)
 
     def struct(self):
@@ -325,6 +331,7 @@ class Document(LazyLoader):
             zc = zpp[comp_name]
             if zc.changed:
                 content = zc.obj.content()
+                assert(comp_name == zc.obj.filename)
                 cin = None
             else:
                 cin = i.open(comp_name)

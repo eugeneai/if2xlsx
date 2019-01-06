@@ -9,23 +9,41 @@ NS = {
 }
 
 
+class Root(object):
+    """Associates the root node of ZipFile structure with
+    a ZipFile itself."""
+
+    def __init__(self, root, stream):
+        self.root = root
+        self.stream = stream
+
+
 class LazyLoader(object):
     """Base cless for lazy loading structures from a stream"""
 
     __filename__ = None
 
-    def __init__(self, stream=None, filename=None, mode='r'):
+    def __init__(self, root=None, filename=None, mode='r'):
         """Initialize and open file of Excel Document"""
-        if not isinstance(stream, ZipFile):
-            stream = ZipFile(stream, mode=mode)
-        self.stream = stream
+        if not isinstance(root, Root):
+            raise ValueError('first parameter must be instance of Root')
+        self.root = root
         if filename is None:
             filename = self.__class__.__filename__
         self.filename = filename
         self.xml = None
         self.loaded = False
+        self._changed = False
         self.ids = OrderedDict()
         self.struct()
+
+    @property
+    def changed(self):
+        return self._changed
+
+    @changed.setter
+    def set_changed(self, value):
+        self.changed = value
 
     def struct(self):
         """Define object structures reflecting
@@ -43,7 +61,7 @@ class LazyLoader(object):
     def open(self, name, mode='r'):
         """Helper function for initiating file streams
         by names."""
-        return self.stream.open(name=name, mode=mode, force_zip64=True)
+        return self.root.stream.open(name=name, mode=mode, force_zip64=True)
 
     def load_xml(self, name):
         """Read ZipFile File as lxml etree XML"""
@@ -68,7 +86,7 @@ class DocumentProperties(LazyLoader):
     """
 
     def register_property(self, name, filename):
-        obj = DocumentProperties(self.stream, filename=filename)
+        obj = DocumentProperties(self.root, filename=filename)
         setattr(self, name, obj)
         return obj
 
@@ -100,7 +118,7 @@ class DocumentRels(Rels):
     def register_attrs(self, target):
         super(DocumentRels, self).register_attrs(target)
 
-        props = DocumentProperties(self.stream)
+        props = DocumentProperties(self.root)
         setattr(target, 'props', props)
 
         for rel in self.relations():
@@ -113,19 +131,19 @@ class DocumentRels(Rels):
 
             elif t.endswith("officeDocument"):
                 name, _ = os.path.split(filename)
-                obj = OfficeDocument(self.stream, filename=filename)
+                obj = OfficeDocument(self.root, filename=filename)
                 setattr(target, name, obj)
 
             self.ids[rel.id] = obj
 
 
 class DirRels(Rels):
-    def __init__(self, stream, relative_to):
+    def __init__(self, root, relative_to):
         pfilename = relative_to.filename
         name = os.path.split(pfilename)[0]
         filename = os.path.join(name,
                                 self.__class__.__filename__, )
-        super(DirRels, self).__init__(stream=stream,
+        super(DirRels, self).__init__(root=root,
                                       filename=filename)
 
 
@@ -141,10 +159,10 @@ class XlRels(DirRels):
             t = os.path.split(rel.type)[-1]
             if t == "worksheet":
                 obj = WorkSheet(
-                    self.stream, filename=rel.target, document=target)
+                    self.root, filename=rel.target, document=target)
                 ws.add(obj)
             elif t == "sharedStrings":
-                obj = SharedStrings(self.stream,
+                obj = SharedStrings(self.root,
                                     filename=rel.target)
                 setattr(target, 'sharedStrings', obj)
 
@@ -157,27 +175,14 @@ class WsRels(DirRels):
     __filename__ = "_rels/*"
 
 
-class Document(LazyLoader):
-    """An Excel document, either loaded or generated from
-    a scratch file.
-    """
-
-    def struct(self):
-        """Lazy load structures into memory"""
-        self.rels = DocumentRels(self.stream)
-
-    def load(self):
-        self.rels.register_attrs(self)
-
-
 class WorkSheet(LazyLoader):
     """Defines Worksheet"""
 
-    def __init__(self,  stream, filename, document):
+    def __init__(self,  foot, filename, document):
         dfilename = document.filename
         name = os.path.split(dfilename)[0]
         filename = os.path.join(name, filename)
-        super(WorkSheet, self).__init__(stream=stream, filename=filename)
+        super(WorkSheet, self).__init__(root=root, filename=filename)
         self.document = document
 
 
@@ -204,9 +209,9 @@ class WorkSheets(OrderedDict):
 class SharedStrings(OrderedDict, LazyLoader):
     """Shared strings holder"""
 
-    def __init__(self,  stream, filename):
+    def __init__(self,  root, filename):
         OrderedDict.__init__(self)
-        LazyLoader.__init__(self, stream=stream, filename=filename)
+        LazyLoader.__init__(self, root=root, filename=filename)
 
 
 class OfficeDocument(LazyLoader):
@@ -214,7 +219,7 @@ class OfficeDocument(LazyLoader):
     """
 
     def struct(self):
-        self.rels = XlRels(self.stream, relative_to=self)
+        self.rels = XlRels(self.root, relative_to=self)
 
     def load(self):
         super(OfficeDocument, self).load()
@@ -223,3 +228,28 @@ class OfficeDocument(LazyLoader):
     @property
     def ws(self):
         return self.worksheets
+
+
+class Document(LazyLoader):
+    """An Excel File, either loaded or generated from
+    a scratch file.
+    """
+
+    def __init__(self, stream=None, filename=None, mode='r'):
+        if not isinstance(stream, ZipFile):
+            if stream is not None:
+                stream = ZipFile(stream, mode=mode)
+            else:
+                RuntimeError('scratch is not implemented')
+                # TODO: Implement scratch
+
+        root = Root(self, stream)
+
+        super(Document, self).__init__(root=root, filename=filename, mode=mode)
+
+    def struct(self):
+        """Lazy load structures into memory"""
+        self.rels = DocumentRels(self.root)
+
+    def load(self):
+        self.rels.register_attrs(self)

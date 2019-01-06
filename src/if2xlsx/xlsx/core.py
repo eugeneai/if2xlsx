@@ -36,7 +36,6 @@ class LazyLoader(object):
             filename = self.__class__.__filename__
         self.filename = filename
         self.xml = None
-        self.loaded = False
         self.ids = OrderedDict()
         self.struct()
 
@@ -69,7 +68,7 @@ class LazyLoader(object):
         """Lazy load structures into memory.
         By default load it as XML,
         supposing filename field to exist"""
-        if self.loaded:
+        if self.state.loaded:
             return
         if self.filename is not None:
             self._register_at_root()

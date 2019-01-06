@@ -21,7 +21,7 @@ OUT_FILE = os.path.join(OUTPUT_DIR, "book-copy.xlsx")
 
 OUT_FILE_TEMPLATE = os.path.join(OUTPUT_DIR, "book-{}.xlsx")
 
-# register_adapters()
+register_adapters()
 
 # @SkipTest
 
@@ -87,6 +87,7 @@ class TestGeneralWriting(object):
     def test_direct_save_but_all_changes_by_force(self):
         xl = self.xldoc
         self.doc = IDocument(self.xldoc)
+        assert xl.rels.state.loaded
 
         wb1 = self.doc.ws['sheet1']
         wb2 = self.doc.ws[2]
@@ -103,6 +104,6 @@ class TestGeneralWriting(object):
                 assert(part.obj is not None)
                 assert(pname == part.obj.filename)
                 assert(part.obj.changed)
-                assert part.obj.loaded, part.obj.filename
+                assert part.obj.state.loaded, part.obj.xml
 
         self.xldoc.save(OUT_FILE_TEMPLATE.format('imposed'))

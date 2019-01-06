@@ -1,12 +1,17 @@
-from zipfile import ZipFile
+from zipfile import ZipFile, ZIP_DEFLATED
 #from abc import ABC, abstractmethod
 from lxml import etree
 from collections import OrderedDict, namedtuple
 import os.path
+from itertools import cycle
+import tempfile
 
 NS = {
     "rel": "http://schemas.openxmlformats.org/package/2006/relationships",
 }
+
+
+ZIP_COMPRESSION_LEVEL = 5
 
 
 class Root(object):
@@ -33,17 +38,23 @@ class LazyLoader(object):
         self.filename = filename
         self.xml = None
         self.loaded = False
-        self._changed = False
         self.ids = OrderedDict()
         self.struct()
 
     @property
+    def state(self):
+        self.root.zipparts[self.filename]
+
+    @property
     def changed(self):
-        return self._changed
+        return self.state.changed
 
     @changed.setter
     def set_changed(self, value):
-        self.changed = value
+        self.state.changed = value
+
+    def invalidate(self):
+        self.changed = True
 
     @property
     def stream(self):
@@ -72,6 +83,12 @@ class LazyLoader(object):
         i = self.open(name)
         self.xml = etree.parse(i)
         return self.xml
+
+    def content(self):
+        """Return the content as a part of ZipFile, bytes.
+        By default just serialize XML"""
+        if self.xml is not None:
+            return etree.tostring(self.xml, encoding='utf-8', xml_declaration=True, inclusive_ns_prefixes=True)
 
     def pretty(self, noprint=False):
         answer = etree.tostring(self.xml,
@@ -234,6 +251,10 @@ class OfficeDocument(LazyLoader):
         return self.worksheets
 
 
+FileState = namedtuple(
+    "FileState", ['name', 'obj', 'loaded', 'changed', 'deleted'])
+
+
 class Document(LazyLoader):
     """An Excel File, either loaded or generated from
     a scratch file.
@@ -251,9 +272,26 @@ class Document(LazyLoader):
 
         super(Document, self).__init__(root=root, filename=filename, mode=mode)
 
+        self.zipparts = dict(zip(stream.namelist(), cycle(
+            [FileState(None, None, False, False, False)])))
+        # print(self.zipparts)
+
     def struct(self):
         """Lazy load structures into memory"""
         self.rels = DocumentRels(self.root)
 
     def load(self):
         self.rels.register_attrs(self)
+
+    def save(self, filename):
+        """Save ZipFile as Excel file copy with content changed."""
+        o = ZipFile(filename, mode='w',
+                    compression=ZIP_DEFLATED, compresslevel=ZIP_COMPRESSION_LEVEL)
+        i = self.root.stream
+        for comp_name in self.zipparts.keys():
+            cin = i.open(comp_name)
+            cout = o.open(comp_name, mode='w', force_zip64=True)
+            cout.write(cin.read())  # FIXME: Do it with finite size buffer
+            cout.close()
+            cin.close()
+        o.close()

@@ -11,7 +11,13 @@ INPUT_DIR = os.path.abspath(
     os.path.join(os.path.split(__file__)[0],
                  '..', 'input'))
 
+OUTPUT_DIR = os.path.abspath(
+    os.path.join(INPUT_DIR, "..", "output")
+)
+
 TEST_FILE = os.path.join(INPUT_DIR, "book.xlsx")
+
+OUT_FILE = os.path.join(OUTPUT_DIR, "book-copy.xlsx")
 
 # register_adapters()
 
@@ -64,3 +70,15 @@ class TestInterface:
         wb2 = self.doc.ws[0]
         # print(wb1.name, wb2.name)
         # assert wb1.name == wb2.name
+
+
+class TestGeneralWriting(object):
+    """Testing general level (low level) of writing.
+    """
+
+    def setUp(self):
+        self.xldoc = Document(TEST_FILE)
+
+    def test_direct_write(self):
+        print(OUT_FILE)
+        self.xldoc.save(OUT_FILE)

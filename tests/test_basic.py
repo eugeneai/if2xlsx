@@ -53,6 +53,10 @@ class TestBasic:
         w.load()
         # w.pretty()
 
+    def test_content_type(self):
+        # self.xl.contentType.pretty()
+        assert hasattr(self.xl, 'contentType')
+
     def tearDown(self):
         pass
 

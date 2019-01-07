@@ -61,9 +61,11 @@ class WorkSheetToIWorkSheetAdapter(object):
 
     @name.setter
     def name(self, value):
+        # FIXME: We can rename table only onece
         ctx = self.context
         ctx.state.name = value
         ctx.xldoc.rels.tablename_changed(ctx.filename, value)
+        #ctx.filename = tools.renamed(ctx.filename, value)
 
 
 ADAPTER_REGISTERED = False

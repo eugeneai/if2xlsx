@@ -9,6 +9,7 @@ import if2xlsx.xlsx.tools as tools
 
 NS = {
     "rel": "http://schemas.openxmlformats.org/package/2006/relationships",
+    "type": "http://schemas.openxmlformats.org/package/2006/content-types"
 }
 
 ZIP_COMPRESSION_LEVEL = 5
@@ -113,6 +114,30 @@ class LazyLoader(object):
 
     def xpath(self, query):
         return self.xml.xpath(query, namespaces=NS)
+
+
+class ContentType(LazyLoader):
+    """ContentType reflects [Content_Types].xml
+    """
+
+    def __init__(self, root, filename='[Content_Types].xml'):
+        super(ContentType, self).__init__(root=root, filename=filename)
+        self.ovr = OrderedDict()
+
+    def register_overrides(self):
+        self.load()
+        for node in self.xpath("/type:Types/type:Override"):
+            filename = node.attrib["PartName"]
+            self.ovr[filename] = node
+
+    def tablename_changed(self, filename, name):
+        ofn = "/"+filename
+        node = self.ovr[ofn]
+        new_name = tools.renamed(node.attrib["PartName"], name)
+        del self.ovr[ofn]
+        node.attrib["PartName"] = new_name
+        self.ovr[new_name] = node
+        self.invalidate()
 
 
 class DocumentProperties(LazyLoader):
@@ -221,7 +246,7 @@ class XlRels(DirRels):
         else:
             raise ValueError('object not found')
 
-        rel.element.attrib['Target'] = tools.renamed(filename, name)
+        rel.element.attrib['Target'] = tools.renamed(rel.target, name)
         self.invalidate()
 
 
@@ -284,6 +309,10 @@ class OfficeDocument(LazyLoader):
     def ws(self):
         return self.worksheets
 
+    def tablename_changed(self, filename, name):
+        self.rels.tablename_changed(filename, name)
+        self.root.root.contentType.tablename_changed(filename, name)
+
 
 FileState = namedtuple("FileState",
                        ['name', 'obj', 'loaded', 'changed', 'deleted'])
@@ -338,9 +367,11 @@ class Document(LazyLoader):
     def struct(self):
         """Lazy load structures into memory"""
         self.rels = DocumentRels(self.root)
+        self.contentType = ContentType(self.root)
 
     def load(self):
         self.rels.register_attrs(self)
+        self.contentType.register_overrides()
 
     def save(self, filename):
         """Save ZipFile as Excel file copy with content changed."""

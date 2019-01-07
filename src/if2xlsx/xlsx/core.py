@@ -312,6 +312,14 @@ class OfficeDocument(LazyLoader):
     def tablename_changed(self, filename, name):
         self.rels.tablename_changed(filename, name)
         self.root.root.contentType.tablename_changed(filename, name)
+        root = self.root.root
+        zpp = root.zipparts
+        new_fn = tools.renamed(filename, name)
+        fs = zpp[filename]
+        assert (fs.obj is not None)
+        del zpp[filename]
+        zpp[new_fn] = fs
+        fs.changed = True
 
 
 FileState = namedtuple("FileState",

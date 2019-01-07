@@ -118,3 +118,9 @@ class TestGeneralWriting(object):
         wb0.name = 'table1'
         assert wb0.name == 'table1'
         self.xldoc.save(OUT_FILE_TEMPLATE.format('renamed'))
+
+        wb1 = self.doc.ws['table1']
+        assert wb0.name == 'table1'
+        wb0.name = 'tbl1'
+        assert wb0.name == 'tbl1'
+        self.xldoc.save(OUT_FILE_TEMPLATE.format('renamed-tbl'))

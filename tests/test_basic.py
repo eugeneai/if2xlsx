@@ -57,6 +57,14 @@ class TestBasic:
         # self.xl.contentType.pretty()
         assert hasattr(self.xl, 'contentType')
 
+    def test_names_and_sheets(self):
+        xl = self.xl.xl
+        xl.load()
+        assert xl.get_def("Подвал") == 'Отчет!$A$7:$E$8'
+        # print(xl.sheets)
+        # print(xl.get_sheet("Лист2"))
+        # assert xl.get_sheet("Отчет") == 'sheet1'
+
     def tearDown(self):
         pass
 

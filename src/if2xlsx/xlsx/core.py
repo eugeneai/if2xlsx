@@ -9,7 +9,8 @@ import if2xlsx.xlsx.tools as tools
 
 NS = {
     "rel": "http://schemas.openxmlformats.org/package/2006/relationships",
-    "type": "http://schemas.openxmlformats.org/package/2006/content-types"
+    "type": "http://schemas.openxmlformats.org/package/2006/content-types",
+    'main': "http://schemas.openxmlformats.org/spreadsheetml/2006/main",
 }
 
 ZIP_COMPRESSION_LEVEL = 5
@@ -252,17 +253,6 @@ class WsRels(DirRels):
     __filename__ = "_rels/*"
 
 
-class WorkbookDescription(LazyLoader):
-    __filename__ = "workbook.xml"
-
-    def __init__(self, root, relative_to):
-        filename = tools.relative_to(self.__class__.__filename__, relative_to)
-        super(WorkbookDescription, self).__init__(root=root, filename=filename)
-
-    def register_names(self):
-        self.load()
-
-
 class WorkSheet(LazyLoader):
     """Defines Worksheet"""
 
@@ -308,12 +298,13 @@ class OfficeDocument(LazyLoader):
 
     def struct(self):
         self.rels = XlRels(self.root, relative_to=self)
-        self.wb_desc = WorkbookDescription(self.root, relative_to=self)
+        self.sheets = OrderedDict()
+        self.names = OrderedDict()
 
     def load(self):
         super(OfficeDocument, self).load()
         self.rels.register_attrs(self)
-        self.wb_desc.register_names()
+        self.register_names()
 
     @property
     def ws(self):
@@ -330,6 +321,23 @@ class OfficeDocument(LazyLoader):
         del zpp[filename]
         zpp[new_fn] = fs
         fs.changed = True
+
+    def register_names(self):
+        for node in self.xpath('/main:workbook/main:sheets/main:sheet'):
+            name = node.attrib["name"]
+            self.sheets[name] = node
+        for node in self.xpath('/main:workbook/main:definedNames/main:definedName'):
+            name = node.attrib["name"]
+            self.names[name] = node
+
+    def get_def(self, name):
+        node = self.names[name]
+        return node.text
+
+    # def get_sheet(self, name):
+    #     node = self.sheets[name]
+    #     print(node.attrib)
+    #     return node.text
 
 
 FileState = namedtuple("FileState",

@@ -18,3 +18,9 @@ def name(filename):
     pnamext = pth[-1]
     name, ext = os.path.splitext(pnamext)
     return name
+
+
+def relative_to(filename, obj):
+    pfilename = obj.filename
+    name = os.path.split(pfilename)[0]
+    return os.path.join(name, filename)

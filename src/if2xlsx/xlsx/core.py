@@ -13,6 +13,7 @@ NS = {
 }
 
 ZIP_COMPRESSION_LEVEL = 5
+PRETTY_PRINT = True
 
 
 class Root(object):
@@ -103,6 +104,7 @@ class LazyLoader(object):
             return etree.tostring(
                 self.xml,
                 encoding='utf-8',
+                pretty_print=PRETTY_PRINT,
                 xml_declaration=True,
                 inclusive_ns_prefixes=True)
 
@@ -208,12 +210,7 @@ class DocumentRels(Rels):
 
 class DirRels(Rels):
     def __init__(self, root, relative_to):
-        pfilename = relative_to.filename
-        name = os.path.split(pfilename)[0]
-        filename = os.path.join(
-            name,
-            self.__class__.__filename__,
-        )
+        filename = tools.relative_to(self.__class__.__filename__, relative_to)
         super(DirRels, self).__init__(root=root, filename=filename)
 
 
@@ -253,6 +250,17 @@ class XlRels(DirRels):
 class WsRels(DirRels):
 
     __filename__ = "_rels/*"
+
+
+class WorkbookDescription(LazyLoader):
+    __filename__ = "workbook.xml"
+
+    def __init__(self, root, relative_to):
+        filename = tools.relative_to(self.__class__.__filename__, relative_to)
+        super(WorkbookDescription, self).__init__(root=root, filename=filename)
+
+    def register_names(self):
+        self.load()
 
 
 class WorkSheet(LazyLoader):
@@ -300,10 +308,12 @@ class OfficeDocument(LazyLoader):
 
     def struct(self):
         self.rels = XlRels(self.root, relative_to=self)
+        self.wb_desc = WorkbookDescription(self.root, relative_to=self)
 
     def load(self):
         super(OfficeDocument, self).load()
         self.rels.register_attrs(self)
+        self.wb_desc.register_names()
 
     @property
     def ws(self):

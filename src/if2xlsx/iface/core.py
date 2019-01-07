@@ -4,6 +4,7 @@ from zope.interface import implementer
 
 from if2xlsx.xlsx import OfficeDocument, WorkSheets, WorkSheet, Document
 import os.path
+import if2xlsx.xlsx.tools as tools
 
 
 @adapter(OfficeDocument)
@@ -52,10 +53,17 @@ class WorkSheetToIWorkSheetAdapter(object):
 
     @property
     def name(self):
-        filename = self.context.filename
-        nameext = os.path.split(filename)[-1]
-        name, ext = os.path.splitext(nameext)
-        return name
+        ctx = self.context
+        st = ctx.state
+        if st.name is not None:
+            return st.name
+        return tools.name(ctx.filename)
+
+    @name.setter
+    def name(self, value):
+        ctx = self.context
+        ctx.state.name = value
+        ctx.xldoc.rels.tablename_changed(ctx.filename, value)
 
 
 ADAPTER_REGISTERED = False

@@ -5,6 +5,7 @@ from collections import OrderedDict, namedtuple
 import os.path
 from itertools import cycle
 import tempfile
+import if2xlsx.xlsx.tools as tools
 
 NS = {
     "rel": "http://schemas.openxmlformats.org/package/2006/relationships",
@@ -38,6 +39,10 @@ class LazyLoader(object):
         self.xml = None
         self.ids = OrderedDict()
         self.struct()
+
+    @property
+    def xldoc(self):
+        return self.root.root.xl
 
     @property
     def state(self):
@@ -134,10 +139,19 @@ class Rels(LazyLoader):
             id = a['Id']
             type = a['Type']
             target = a['Target']
-            yield Relationship(id=id, type=type, target=target)
+            yield Relationship(id=id, type=type, target=target, element=node)
 
 
-Relationship = namedtuple('Relationship', ['id', 'type', 'target'])
+class Relationship(object):
+    """Saves relationship data
+    """
+
+    def __init__(self, id, type, target, element, obj=None):
+        self.id = id
+        self.type = type
+        self.target = target
+        self.element = element
+        self.obj = obj
 
 
 class DocumentRels(Rels):
@@ -163,7 +177,8 @@ class DocumentRels(Rels):
                 obj = OfficeDocument(self.root, filename=filename)
                 setattr(target, name, obj)
 
-            self.ids[rel.id] = obj
+            rel.obj = obj
+            self.ids[rel.id] = rel
 
 
 class DirRels(Rels):
@@ -196,7 +211,18 @@ class XlRels(DirRels):
                 setattr(target, 'sharedStrings', obj)
 
             # TODO: calcChain, styles, theme
-            self.ids[rel.id] = obj
+            rel.obj = obj
+            self.ids[rel.id] = rel
+
+    def tablename_changed(self, filename, name):
+        for k, rel in self.ids.items():
+            if filename.endswith(rel.target):  # FIXME: Bad supposition
+                break
+        else:
+            raise ValueError('object not found')
+
+        rel.element.attrib['Target'] = tools.renamed(filename, name)
+        self.invalidate()
 
 
 class WsRels(DirRels):
@@ -328,15 +354,22 @@ class Document(LazyLoader):
         for comp_name in zpp.keys():
             content = None
             zc = zpp[comp_name]
+            open_name = comp_name
+            if zc.deleted:
+                # Skip adding this file to the target Excel file
+                continue
+            if zc.name is not None:
+                # Name of file is changing
+                open_name = tools.renamed(open_name, zc.name)
             if zc.changed:
                 content = zc.obj.content()
                 assert(comp_name == zc.obj.filename)
                 cin = None
             else:
                 cin = i.open(comp_name)
-            cout = o.open(comp_name, mode='w', force_zip64=True)
+            cout = o.open(open_name, mode='w', force_zip64=True)
             if content is not None:
-                cout.write(content)  # FIXME: Do it with finite size buffer
+                cout.write(content)
             else:
                 cout.write(cin.read())  # FIXME: Do it with finite size buffer
             cout.close()

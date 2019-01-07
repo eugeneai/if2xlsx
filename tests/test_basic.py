@@ -80,13 +80,13 @@ class TestGeneralWriting(object):
 
     def setUp(self):
         self.xldoc = Document(TEST_FILE)
+        self.doc = IDocument(self.xldoc)
 
     def test_direct_write(self):
         self.xldoc.save(OUT_FILE_TEMPLATE.format('copy'))
 
     def test_direct_save_but_all_changes_by_force(self):
         xl = self.xldoc
-        self.doc = IDocument(self.xldoc)
         assert xl.rels.state.loaded
 
         wb1 = self.doc.ws['sheet1']
@@ -107,3 +107,10 @@ class TestGeneralWriting(object):
                 assert part.obj.state.loaded, part.obj.xml
 
         self.xldoc.save(OUT_FILE_TEMPLATE.format('imposed'))
+
+    def test_renaming_table(self):
+        wb0 = self.doc.ws['sheet1']
+        assert wb0.name == 'sheet1'
+        wb0.name = 'table1'
+        assert wb0.name == 'table1'
+        self.xldoc.save(OUT_FILE_TEMPLATE.format('renamed'))

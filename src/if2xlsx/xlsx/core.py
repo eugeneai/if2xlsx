@@ -9,6 +9,7 @@ import if2xlsx.xlsx.tools as tools
 
 NS = {
     "rel": "http://schemas.openxmlformats.org/package/2006/relationships",
+    'orel': "http://schemas.openxmlformats.org/officeDocument/2006/relationships",
     "type": "http://schemas.openxmlformats.org/package/2006/content-types",
     'main': "http://schemas.openxmlformats.org/spreadsheetml/2006/main",
 }
@@ -221,7 +222,7 @@ class XlRels(DirRels):
 
     def register_attrs(self, target):
         super(DirRels, self).register_attrs(target)
-        ws = WorkSheets()
+        ws = WorkSheets(self.root)
         setattr(target, 'worksheets', ws)
         for rel in self.relations():
             t = os.path.split(rel.type)[-1]
@@ -267,8 +268,9 @@ class WorkSheet(LazyLoader):
 class WorkSheets(OrderedDict):
     """Worksheet list"""
 
-    def __init__(self, *args, **kw):
+    def __init__(self, root, *args, **kw):
         super(WorkSheets, self).__init__(*args, **kw)
+        self.root = root
         self.counter = 0
 
     def add(self, sheet):
@@ -302,7 +304,10 @@ class OfficeDocument(LazyLoader):
         self.names = OrderedDict()
 
     def load(self):
-        super(OfficeDocument, self).load()
+        if not self.state.loaded:
+            super(OfficeDocument, self).load()
+        if self.rels.ids:
+            return
         self.rels.register_attrs(self)
         self.register_names()
 
@@ -334,10 +339,14 @@ class OfficeDocument(LazyLoader):
         node = self.names[name]
         return node.text
 
-    # def get_sheet(self, name):
-    #     node = self.sheets[name]
-    #     print(node.attrib)
-    #     return node.text
+    def get_sheet(self, name):
+        node = self.sheets[name]
+        id = node.attrib[self.entity("orel:id")]
+        return self.rels.ids[id].obj
+
+    def entity(self, ns_name):
+        ns, name = ns_name.split(":", 1)
+        return "{"+NS[ns]+"}"+name
 
 
 FileState = namedtuple("FileState",
@@ -396,6 +405,8 @@ class Document(LazyLoader):
         self.contentType = ContentType(self.root)
 
     def load(self):
+        if self.rels.ids:
+            return
         self.rels.register_attrs(self)
         self.contentType.register_overrides()
 

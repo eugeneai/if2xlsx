@@ -39,7 +39,13 @@ class WorkSheetsToIWorkSheetsAdapter(object):
         self.context = context
 
     def __getitem__(self, index):
-        return IWorkSheet(self.context[index])
+        try:
+            # Return a WorkSheet by name
+            ws = self.context.root.root.xldoc.get_sheet(index)
+        except KeyError:
+            ws = self.context[index]
+
+        return(IWorkSheet(ws))
 
     def __len__(self):
         return len(self.context)

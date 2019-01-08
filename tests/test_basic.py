@@ -6,6 +6,7 @@ from zipfile import ZipFile
 from if2xlsx import Document
 from if2xlsx.interfaces import IDocument
 from if2xlsx.iface import register_adapters
+from pprint import pprint
 
 INPUT_DIR = os.path.abspath(
     os.path.join(os.path.split(__file__)[0],
@@ -64,6 +65,11 @@ class TestBasic:
         # print(xl.sheets)
         # print(xl.get_sheet("Лист2"))
         assert xl.get_sheet("Отчет") == xl.ws['sheet1']
+
+    def test_print_names(self):
+        xl = self.xl.xl
+        xl.load()
+        xl.print_names()
 
     def tearDown(self):
         pass

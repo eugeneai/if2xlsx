@@ -348,6 +348,10 @@ class OfficeDocument(LazyLoader):
         ns, name = ns_name.split(":", 1)
         return "{"+NS[ns]+"}"+name
 
+    def print_names(self):
+        for k, ent in self.names.items():
+            print("{}:{}".format(k, ent.text))
+
 
 FileState = namedtuple("FileState",
                        ['name', 'obj', 'loaded', 'changed', 'deleted'])

@@ -95,6 +95,13 @@ class TestInterface:
         w2 = doc.ws['Отчет']
         assert w1.context == w2.context
 
+    def test_selection(self):
+        doc = self.doc
+        sel1 = doc["Отчет!$A$1:$A$10"]
+        w = doc.ws['Отчет']
+        sel3 = w["$A$1:$A$10"]
+        sel2 = w["Отчет!$A$1:$A$10"]
+
 
 class TestGeneralWriting(object):
     """Testing general level (low level) of writing.

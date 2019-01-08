@@ -12,10 +12,33 @@ import if2xlsx.xlsx.tools as tools
 class OfficeDocumentToIDocumentAdapter(object):
     def __init__(self, context):
         self.context = context
+        self._ws = None
 
     @property
     def ws(self):
-        return IWorkSheets(self.context.ws)
+        if self._ws is None:
+            self.context.load()
+            self._ws = answer = IWorkSheets(self.context.ws)
+            answer.doc = self
+        else:
+            answer = self._ws
+        return answer
+
+    def __getitem__(self, what):
+        """Return a selection described by what,
+        e.g. Sheet1!$A$1:$B$1"""
+        # Check what to contain a '<WorkSheet name>!' part
+
+        parts = what.split('!', 1)
+        if len(parts) != 2:
+            raise KeyError(
+                "argument does not contain '<WorkSheet name>!' part "
+                "or it is a wrong expression")
+
+        sheet, selection = parts
+
+        sheet = self.ws[sheet]
+        return sheet[selection]
 
 
 @adapter(Document)
@@ -25,11 +48,14 @@ class DocumentToIDocumentAdapter(object):
         self.context = context
         context.load()
         self.xl = context.xl  # NOTE: Suppose that xl will always be OfficeDocument
+        self.doc = IDocument(self.xl)
 
     @property
     def ws(self):
-        self.xl.load()        # NOTE: This might happened in constructor.
-        return IWorkSheets(self.xl.ws)
+        return self.doc.ws
+
+    def __getitem__(self, what):
+        return self.doc[what]
 
 
 @adapter(WorkSheets)
@@ -37,6 +63,7 @@ class DocumentToIDocumentAdapter(object):
 class WorkSheetsToIWorkSheetsAdapter(object):
     def __init__(self, context):
         self.context = context
+        self.doc = None  # it is set by caller
 
     def __getitem__(self, index):
         try:
@@ -45,7 +72,10 @@ class WorkSheetsToIWorkSheetsAdapter(object):
         except KeyError:
             ws = self.context[index]
 
-        return(IWorkSheet(ws))
+        aws = IWorkSheet(ws)
+        aws.doc = self.doc
+
+        return(aws)
 
     def __len__(self):
         return len(self.context)
@@ -56,6 +86,7 @@ class WorkSheetsToIWorkSheetsAdapter(object):
 class WorkSheetToIWorkSheetAdapter(object):
     def __init__(self, context):
         self.context = context
+        self.doc = None  # Set by caller
 
     @property
     def name(self):
@@ -74,6 +105,16 @@ class WorkSheetToIWorkSheetAdapter(object):
         old_fn = ctx.filename
         ctx.filename = tools.renamed(old_fn, value)
         ctx.xldoc.tablename_changed(old_fn, value)
+
+    def __getitem__(self, what):
+        """Get Excel rows, columns, cells according to `what` argument."""
+
+        # Check if it contains absolute '<WorkSheet name>!' part
+
+        parts = what.split('!', 1)
+        if len(parts) == 2:
+            return self.doc[what]
+        print(what)
 
 
 ADAPTER_REGISTERED = False

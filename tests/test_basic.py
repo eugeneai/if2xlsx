@@ -1,3 +1,4 @@
+from if2xlsx.iface.gram.test_gram import *
 from nose.plugins.skip import SkipTest
 from nose.tools import assert_raises, nottest
 import os.path
@@ -7,6 +8,7 @@ from if2xlsx import Document
 from if2xlsx.interfaces import IDocument
 from if2xlsx.iface import register_adapters
 from pprint import pprint
+
 
 INPUT_DIR = os.path.abspath(
     os.path.join(os.path.split(__file__)[0],

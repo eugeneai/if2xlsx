@@ -56,36 +56,6 @@ chunk
     : ('=')? exp EOF
     ;
 
-block
-    : stat* retstat?
-    ;
-
-stat
-    : ';'
-    | varlist '=' explist
-    | functioncall
-    | label
-    | 'break'
-    | 'goto' NAME
-    | 'do' block 'end'
-    | 'while' exp 'do' block 'end'
-    | 'repeat' block 'until' exp
-    | 'if' exp 'then' block ('elseif' exp 'then' block)* ('else' block)? 'end'
-    | 'for' NAME '=' exp ',' exp (',' exp)? 'do' block 'end'
-    | 'for' namelist 'in' explist 'do' block 'end'
-    | 'function' funcname funcbody
-    | 'local' 'function' NAME funcbody
-    | 'local' namelist ('=' explist)?
-    ;
-
-retstat
-    : 'return' explist? ';'?
-    ;
-
-label
-    : '::' NAME '::'
-    ;
-
 funcname
     : NAME ('.' NAME)* (':' NAME)?
     ;
@@ -107,7 +77,6 @@ exp
     | number
     | string
     | '...'
-    | functiondef
     | prefixexp
     | tableconstructor
     | <assoc=right> exp operatorPower exp
@@ -185,14 +154,6 @@ functioncall
 
 args
     : '(' explist? ')' | tableconstructor | string
-    ;
-
-functiondef
-    : 'function' funcbody
-    ;
-
-funcbody
-    : '(' parlist? ')' block 'end'
     ;
 
 parlist

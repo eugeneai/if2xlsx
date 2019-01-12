@@ -17,42 +17,6 @@ class ExcelListener(ParseTreeListener):
         pass
 
 
-    # Enter a parse tree produced by ExcelParser#block.
-    def enterBlock(self, ctx:ExcelParser.BlockContext):
-        pass
-
-    # Exit a parse tree produced by ExcelParser#block.
-    def exitBlock(self, ctx:ExcelParser.BlockContext):
-        pass
-
-
-    # Enter a parse tree produced by ExcelParser#stat.
-    def enterStat(self, ctx:ExcelParser.StatContext):
-        pass
-
-    # Exit a parse tree produced by ExcelParser#stat.
-    def exitStat(self, ctx:ExcelParser.StatContext):
-        pass
-
-
-    # Enter a parse tree produced by ExcelParser#retstat.
-    def enterRetstat(self, ctx:ExcelParser.RetstatContext):
-        pass
-
-    # Exit a parse tree produced by ExcelParser#retstat.
-    def exitRetstat(self, ctx:ExcelParser.RetstatContext):
-        pass
-
-
-    # Enter a parse tree produced by ExcelParser#label.
-    def enterLabel(self, ctx:ExcelParser.LabelContext):
-        pass
-
-    # Exit a parse tree produced by ExcelParser#label.
-    def exitLabel(self, ctx:ExcelParser.LabelContext):
-        pass
-
-
     # Enter a parse tree produced by ExcelParser#funcname.
     def enterFuncname(self, ctx:ExcelParser.FuncnameContext):
         pass
@@ -203,24 +167,6 @@ class ExcelListener(ParseTreeListener):
 
     # Exit a parse tree produced by ExcelParser#args.
     def exitArgs(self, ctx:ExcelParser.ArgsContext):
-        pass
-
-
-    # Enter a parse tree produced by ExcelParser#functiondef.
-    def enterFunctiondef(self, ctx:ExcelParser.FunctiondefContext):
-        pass
-
-    # Exit a parse tree produced by ExcelParser#functiondef.
-    def exitFunctiondef(self, ctx:ExcelParser.FunctiondefContext):
-        pass
-
-
-    # Enter a parse tree produced by ExcelParser#funcbody.
-    def enterFuncbody(self, ctx:ExcelParser.FuncbodyContext):
-        pass
-
-    # Exit a parse tree produced by ExcelParser#funcbody.
-    def exitFuncbody(self, ctx:ExcelParser.FuncbodyContext):
         pass
 
 

@@ -17,33 +17,6 @@ class ExcelListener(ParseTreeListener):
         pass
 
 
-    # Enter a parse tree produced by ExcelParser#funcname.
-    def enterFuncname(self, ctx:ExcelParser.FuncnameContext):
-        pass
-
-    # Exit a parse tree produced by ExcelParser#funcname.
-    def exitFuncname(self, ctx:ExcelParser.FuncnameContext):
-        pass
-
-
-    # Enter a parse tree produced by ExcelParser#varlist.
-    def enterVarlist(self, ctx:ExcelParser.VarlistContext):
-        pass
-
-    # Exit a parse tree produced by ExcelParser#varlist.
-    def exitVarlist(self, ctx:ExcelParser.VarlistContext):
-        pass
-
-
-    # Enter a parse tree produced by ExcelParser#namelist.
-    def enterNamelist(self, ctx:ExcelParser.NamelistContext):
-        pass
-
-    # Exit a parse tree produced by ExcelParser#namelist.
-    def exitNamelist(self, ctx:ExcelParser.NamelistContext):
-        pass
-
-
     # Enter a parse tree produced by ExcelParser#explist.
     def enterExplist(self, ctx:ExcelParser.ExplistContext):
         pass
@@ -62,57 +35,12 @@ class ExcelListener(ParseTreeListener):
         pass
 
 
-    # Enter a parse tree produced by ExcelParser#prefixexp.
-    def enterPrefixexp(self, ctx:ExcelParser.PrefixexpContext):
+    # Enter a parse tree produced by ExcelParser#varOrFuncCall.
+    def enterVarOrFuncCall(self, ctx:ExcelParser.VarOrFuncCallContext):
         pass
 
-    # Exit a parse tree produced by ExcelParser#prefixexp.
-    def exitPrefixexp(self, ctx:ExcelParser.PrefixexpContext):
-        pass
-
-
-    # Enter a parse tree produced by ExcelParser#functioncall.
-    def enterFunctioncall(self, ctx:ExcelParser.FunctioncallContext):
-        pass
-
-    # Exit a parse tree produced by ExcelParser#functioncall.
-    def exitFunctioncall(self, ctx:ExcelParser.FunctioncallContext):
-        pass
-
-
-    # Enter a parse tree produced by ExcelParser#varOrExp.
-    def enterVarOrExp(self, ctx:ExcelParser.VarOrExpContext):
-        pass
-
-    # Exit a parse tree produced by ExcelParser#varOrExp.
-    def exitVarOrExp(self, ctx:ExcelParser.VarOrExpContext):
-        pass
-
-
-    # Enter a parse tree produced by ExcelParser#var.
-    def enterVar(self, ctx:ExcelParser.VarContext):
-        pass
-
-    # Exit a parse tree produced by ExcelParser#var.
-    def exitVar(self, ctx:ExcelParser.VarContext):
-        pass
-
-
-    # Enter a parse tree produced by ExcelParser#varSuffix.
-    def enterVarSuffix(self, ctx:ExcelParser.VarSuffixContext):
-        pass
-
-    # Exit a parse tree produced by ExcelParser#varSuffix.
-    def exitVarSuffix(self, ctx:ExcelParser.VarSuffixContext):
-        pass
-
-
-    # Enter a parse tree produced by ExcelParser#nameAndArgs.
-    def enterNameAndArgs(self, ctx:ExcelParser.NameAndArgsContext):
-        pass
-
-    # Exit a parse tree produced by ExcelParser#nameAndArgs.
-    def exitNameAndArgs(self, ctx:ExcelParser.NameAndArgsContext):
+    # Exit a parse tree produced by ExcelParser#varOrFuncCall.
+    def exitVarOrFuncCall(self, ctx:ExcelParser.VarOrFuncCallContext):
         pass
 
 
@@ -125,93 +53,21 @@ class ExcelListener(ParseTreeListener):
         pass
 
 
-    # Enter a parse tree produced by ExcelParser#rangedef.
-    def enterRangedef(self, ctx:ExcelParser.RangedefContext):
+    # Enter a parse tree produced by ExcelParser#selList.
+    def enterSelList(self, ctx:ExcelParser.SelListContext):
         pass
 
-    # Exit a parse tree produced by ExcelParser#rangedef.
-    def exitRangedef(self, ctx:ExcelParser.RangedefContext):
-        pass
-
-
-    # Enter a parse tree produced by ExcelParser#rowSelector.
-    def enterRowSelector(self, ctx:ExcelParser.RowSelectorContext):
-        pass
-
-    # Exit a parse tree produced by ExcelParser#rowSelector.
-    def exitRowSelector(self, ctx:ExcelParser.RowSelectorContext):
+    # Exit a parse tree produced by ExcelParser#selList.
+    def exitSelList(self, ctx:ExcelParser.SelListContext):
         pass
 
 
-    # Enter a parse tree produced by ExcelParser#colSelector.
-    def enterColSelector(self, ctx:ExcelParser.ColSelectorContext):
+    # Enter a parse tree produced by ExcelParser#xlTable.
+    def enterXlTable(self, ctx:ExcelParser.XlTableContext):
         pass
 
-    # Exit a parse tree produced by ExcelParser#colSelector.
-    def exitColSelector(self, ctx:ExcelParser.ColSelectorContext):
-        pass
-
-
-    # Enter a parse tree produced by ExcelParser#cellSelector.
-    def enterCellSelector(self, ctx:ExcelParser.CellSelectorContext):
-        pass
-
-    # Exit a parse tree produced by ExcelParser#cellSelector.
-    def exitCellSelector(self, ctx:ExcelParser.CellSelectorContext):
-        pass
-
-
-    # Enter a parse tree produced by ExcelParser#args.
-    def enterArgs(self, ctx:ExcelParser.ArgsContext):
-        pass
-
-    # Exit a parse tree produced by ExcelParser#args.
-    def exitArgs(self, ctx:ExcelParser.ArgsContext):
-        pass
-
-
-    # Enter a parse tree produced by ExcelParser#parlist.
-    def enterParlist(self, ctx:ExcelParser.ParlistContext):
-        pass
-
-    # Exit a parse tree produced by ExcelParser#parlist.
-    def exitParlist(self, ctx:ExcelParser.ParlistContext):
-        pass
-
-
-    # Enter a parse tree produced by ExcelParser#tableconstructor.
-    def enterTableconstructor(self, ctx:ExcelParser.TableconstructorContext):
-        pass
-
-    # Exit a parse tree produced by ExcelParser#tableconstructor.
-    def exitTableconstructor(self, ctx:ExcelParser.TableconstructorContext):
-        pass
-
-
-    # Enter a parse tree produced by ExcelParser#fieldlist.
-    def enterFieldlist(self, ctx:ExcelParser.FieldlistContext):
-        pass
-
-    # Exit a parse tree produced by ExcelParser#fieldlist.
-    def exitFieldlist(self, ctx:ExcelParser.FieldlistContext):
-        pass
-
-
-    # Enter a parse tree produced by ExcelParser#field.
-    def enterField(self, ctx:ExcelParser.FieldContext):
-        pass
-
-    # Exit a parse tree produced by ExcelParser#field.
-    def exitField(self, ctx:ExcelParser.FieldContext):
-        pass
-
-
-    # Enter a parse tree produced by ExcelParser#fieldsep.
-    def enterFieldsep(self, ctx:ExcelParser.FieldsepContext):
-        pass
-
-    # Exit a parse tree produced by ExcelParser#fieldsep.
-    def exitFieldsep(self, ctx:ExcelParser.FieldsepContext):
+    # Exit a parse tree produced by ExcelParser#xlTable.
+    def exitXlTable(self, ctx:ExcelParser.XlTableContext):
         pass
 
 
@@ -239,15 +95,6 @@ class ExcelListener(ParseTreeListener):
 
     # Exit a parse tree produced by ExcelParser#operatorComparison.
     def exitOperatorComparison(self, ctx:ExcelParser.OperatorComparisonContext):
-        pass
-
-
-    # Enter a parse tree produced by ExcelParser#operatorStrcat.
-    def enterOperatorStrcat(self, ctx:ExcelParser.OperatorStrcatContext):
-        pass
-
-    # Exit a parse tree produced by ExcelParser#operatorStrcat.
-    def exitOperatorStrcat(self, ctx:ExcelParser.OperatorStrcatContext):
         pass
 
 

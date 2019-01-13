@@ -56,124 +56,46 @@ chunk
     : ('=')? exp EOF
     ;
 
-funcname
-    : NAME ('.' NAME)* (':' NAME)?
-    ;
-
-varlist
-    : var (',' var)*
-    ;
-
-namelist
-    : NAME (',' NAME)*
-    ;
-
 explist
-    : exp (',' exp)*
+    : exp (','? exp)*
     ;
 
 exp
     : 'nil' | 'false' | 'true'
+    | '(' selList ')'
+    | selector
     | number
     | string
-    | '...'
-    | prefixexp
-    | tableconstructor
+    | varOrFuncCall
+    | '(' exp ')'
+    | '{' exp '}'
     | <assoc=right> exp operatorPower exp
     | operatorUnary exp
     | exp operatorMulDivMod exp
     | exp operatorAddSub exp
-    | <assoc=right> exp operatorStrcat exp
     | exp operatorComparison exp
     | exp operatorAnd exp
     | exp operatorOr exp
     | exp operatorBitwise exp
     ;
 
-prefixexp
-    : varOrExp nameAndArgs*
-    ;
-
-functioncall
-    : varOrExp nameAndArgs+
-    ;
-
-varOrExp
-    : var | '(' exp ')'
-    ;
-
-var
-    : selector
-    | rangedef
-    | (NAME | '(' exp ')' varSuffix) varSuffix*
-    ;
-
-varSuffix
-    : nameAndArgs* ('[' exp ']' | '.' NAME)
-    ;
-
-nameAndArgs
-    : (':' NAME)? args
+varOrFuncCall
+    : NAME ('(' explist ')')?
     ;
 
 selector
-    : rowSelector
-    | colSelector
-    | cellSelector
+    : ASELECTOR
+    | RCSELECTOR
+    | xlTable? NAME ('!' selector)?
+    | selector ':' selector
     ;
 
-rangedef
-    : selector ':' selector
+selList
+    : selector (','? selector)*
     ;
 
-rowSelector
-    : DOLLAR INT
-    ;
-
-colSelector
-    : DOLLAR NAME
-    ;
-
-cellSelector
-    : (DOLLAR)? NAME (DOLLAR)? INT
-    ;
-
-/*
-var
-    : NAME | prefixexp '[' exp ']' | prefixexp '.' NAME
-    ;
-
-prefixexp
-    : var | functioncall | '(' exp ')'
-    ;
-
-functioncall
-    : prefixexp args | prefixexp ':' NAME args
-    ;
-*/
-
-args
-    : '(' explist? ')' | tableconstructor | string
-    ;
-
-parlist
-    : namelist (',' '...')? | '...'
-    ;
-
-tableconstructor
-    : '{' fieldlist? '}'
-    ;
-
-fieldlist
-    : field (fieldsep field)* fieldsep?
-    ;
-
-field
-    : '[' exp ']' '=' exp | NAME '=' exp | exp
-    ;
-
-fieldsep
-    : ',' | ';'
+xlTable
+    : '[' NAME '.' NAME ']'
     ;
 
 operatorOr
@@ -183,10 +105,7 @@ operatorAnd
 	: 'and';
 
 operatorComparison
-	: '<' | '>' | '<=' | '>=' | '~=' | '==';
-
-operatorStrcat
-	: '..';
+	: '<' | '>' | '<=' | '>=' | '~=' | '==' | '=';
 
 operatorAddSub
 	: '+' | '-';
@@ -208,32 +127,10 @@ number
     ;
 
 string
-    : NORMALSTRING | CHARSTRING | LONGSTRING
+    : NORMALSTRING | CHARSTRING
     ;
 
 // LEXER
-
-NAME
-    : [a-zA-Z_][a-zA-Z_0-9]*
-    ;
-
-NORMALSTRING
-    : '"' ( EscapeSequence | ~('\\'|'"') )* '"'
-    ;
-
-CHARSTRING
-    : '\'' ( EscapeSequence | ~('\''|'\\') )* '\''
-    ;
-
-LONGSTRING
-    : '[' NESTED_STR ']'
-    ;
-
-fragment
-NESTED_STR
-    : '=' NESTED_STR '='
-    | '[' .*? ']'
-    ;
 
 INT
     : Digit+
@@ -266,15 +163,6 @@ HexExponentPart
     ;
 
 fragment
-EscapeSequence
-    : '\\' [abfnrtvz"'\\]
-    | '\\' '\r'? '\n'
-    | DecimalEscape
-    | HexEscape
-    | UtfEscape
-    ;
-
-fragment
 DecimalEscape
     : '\\' Digit
     | '\\' Digit Digit
@@ -301,28 +189,53 @@ HexDigit
     : [0-9a-fA-F]
     ;
 
-COMMENT
-    : '--[' NESTED_STR ']' -> channel(HIDDEN)
-    ;
-
-LINE_COMMENT
-    : '--'
-    (                                               // --
-    | '[' '='*                                      // --[==
-    | '[' '='* ~('='|'['|'\r'|'\n') ~('\r'|'\n')*   // --[==AA
-    | ~('['|'\r'|'\n') ~('\r'|'\n')*                // --AAA
-    ) ('\r\n'|'\r'|'\n'|EOF)
-    -> channel(HIDDEN)
-    ;
-
-WS
-    : [ \t\u000C\r\n]+ -> skip
-    ;
-
 SHEBANG
     : '#' '!' ~('\n'|'\r')* -> channel(HIDDEN)
     ;
 
-DOLLAR
-    : [$]
+
+fragment
+SelChar
+    : [a-zA-Z]
+    ;
+
+NAME
+    : [a-zA-Z_][a-zA-Z_0-9]*
+    ;
+
+
+ASELECTOR
+    : [$]?SelChar+[$]?Digit+
+    ;
+
+RCSELECTOR
+    : [Rr][[]Digit+[\]][Cc][[]Digit+[\]]
+    ;
+
+
+NORMALSTRING
+    : '"' ( EscapeSequence | ~('\\'|'"') )* '"'
+    ;
+
+CHARSTRING
+    : '\'' ( EscapeSequence | ~('\''|'\\') )* '\''
+    ;
+
+fragment
+NESTED_STR
+    : '=' NESTED_STR '='
+    | '[' .*? ']'
+    ;
+
+fragment
+EscapeSequence
+    : '\\' [abfnrtvz"'\\]
+    | '\\' '\r'? '\n'
+    | DecimalEscape
+    | HexEscape
+    | UtfEscape
+    ;
+
+WS
+    : [ \t\u000C\r\n]+ -> skip
     ;

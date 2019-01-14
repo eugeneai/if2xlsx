@@ -89,15 +89,6 @@ class ExcelListener(ParseTreeListener):
         pass
 
 
-    # Enter a parse tree produced by ExcelParser#selList.
-    def enterSelList(self, ctx:ExcelParser.SelListContext):
-        pass
-
-    # Exit a parse tree produced by ExcelParser#selList.
-    def exitSelList(self, ctx:ExcelParser.SelListContext):
-        pass
-
-
     # Enter a parse tree produced by ExcelParser#oneCell.
     def enterOneCell(self, ctx:ExcelParser.OneCellContext):
         pass

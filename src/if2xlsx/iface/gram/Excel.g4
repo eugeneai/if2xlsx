@@ -82,13 +82,12 @@ extExp
     ;
 
 exp
-    : '(' selList ')'
+    : '(' explist ')'
     | number
     | string
     | funcCall
     | selector
-    | '(' exp ')'
-    | '{' exp '}'
+    | '{' explist '}'
     | <assoc=right> exp operatorPower exp
     | operatorUnary exp
     | exp operatorMulDivMod exp
@@ -120,10 +119,6 @@ localSel
     | RCSELECTOR
     | NAME
     | INT
-    ;
-
-selList
-    : selector (','? selector)*
     ;
 
 oneCell

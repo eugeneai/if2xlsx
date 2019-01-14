@@ -26,6 +26,15 @@ class ExcelListener(ParseTreeListener):
         pass
 
 
+    # Enter a parse tree produced by ExcelParser#extExp.
+    def enterExtExp(self, ctx:ExcelParser.ExtExpContext):
+        pass
+
+    # Exit a parse tree produced by ExcelParser#extExp.
+    def exitExtExp(self, ctx:ExcelParser.ExtExpContext):
+        pass
+
+
     # Enter a parse tree produced by ExcelParser#exp.
     def enterExp(self, ctx:ExcelParser.ExpContext):
         pass
@@ -53,6 +62,15 @@ class ExcelListener(ParseTreeListener):
         pass
 
 
+    # Enter a parse tree produced by ExcelParser#leftSel.
+    def enterLeftSel(self, ctx:ExcelParser.LeftSelContext):
+        pass
+
+    # Exit a parse tree produced by ExcelParser#leftSel.
+    def exitLeftSel(self, ctx:ExcelParser.LeftSelContext):
+        pass
+
+
     # Enter a parse tree produced by ExcelParser#sheetname.
     def enterSheetname(self, ctx:ExcelParser.SheetnameContext):
         pass
@@ -77,6 +95,15 @@ class ExcelListener(ParseTreeListener):
 
     # Exit a parse tree produced by ExcelParser#selList.
     def exitSelList(self, ctx:ExcelParser.SelListContext):
+        pass
+
+
+    # Enter a parse tree produced by ExcelParser#oneCell.
+    def enterOneCell(self, ctx:ExcelParser.OneCellContext):
+        pass
+
+    # Exit a parse tree produced by ExcelParser#oneCell.
+    def exitOneCell(self, ctx:ExcelParser.OneCellContext):
         pass
 
 

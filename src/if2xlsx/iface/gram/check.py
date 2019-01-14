@@ -449,7 +449,7 @@ FUNCS = set(FUNCS)
 
 def check_func_name(text: str) -> bool:
     rc = text in FUNCS
-    print("FN:", text, rc)
+#    print("FN: '{}'->{}".format(text, rc))
     if rc:
         pass
         #        import pudb
@@ -466,7 +466,7 @@ def check_a_selector(text):
         return False
 
     if RE_A.match(text):
-        print("SEL:", text)
+     #       print("SEL:", text)
         return True
     return False
 
@@ -479,7 +479,7 @@ def check_rc_selector(text):
         return False
 
     if RE_RC.match(text):
-        print("SEL:", text)
+        #        print("SEL:", text)
         return True
     return False
 

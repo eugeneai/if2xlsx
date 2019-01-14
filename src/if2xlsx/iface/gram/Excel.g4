@@ -57,11 +57,28 @@ from .check import check_func_name, check_a_selector, check_rc_selector
 }
 
 chunk
-    : ('=')? exp EOF
+    : ('=')? extExp EOF
     ;
 
 explist
     : exp (','? exp)*
+    ;
+
+extExp
+    : number
+    | string
+    | funcCall
+    | oneCell
+    | '(' extExp ')'
+    | '{' extExp '}'
+    | <assoc=right> extExp operatorPower extExp
+    | operatorUnary extExp
+    | extExp operatorMulDivMod extExp
+    | extExp operatorAddSub extExp
+    | extExp operatorComparison extExp
+    | extExp operatorAnd extExp
+    | extExp operatorOr extExp
+    | extExp operatorBitwise extExp
     ;
 
 exp
@@ -83,11 +100,15 @@ exp
     ;
 
 funcCall
-    : FUNCNAME '(' explist ')'
+    : NAME '(' explist ')'
     ;
 
 selector
-    : (xlTable? sheetname)? localSel
+    : (xlTable? sheetname)? localSel (leftSel)?
+    ;
+
+leftSel
+    : (':' localSel)
     ;
 
 sheetname
@@ -97,11 +118,16 @@ sheetname
 localSel
     : ASELECTOR
     | RCSELECTOR
-    | localSel ':' localSel
+    | NAME
+    | INT
     ;
 
 selList
     : selector (','? selector)*
+    ;
+
+oneCell
+    : (xlTable? sheetname)? localSel
     ;
 
 xlTable
@@ -230,15 +256,17 @@ NAME
 
 
 FUNCNAME
-    : IdWord {check_func_name(self.text)}?
+    :  IdFunc {check_func_name(self.text)}?
     ;
 
 ASELECTOR
-    : [$]?SelChar+[$]?Digit+ {check_a_selector(self.text)}
+    : [$]?SelChar+[$]?Digit+ {check_a_selector(self.text)}?
+    | [$]?SelChar+
+    | [$]?Digit+
     ;
 
 RCSELECTOR
-    : [Rr][[]Digit+[\]][Cc][[]Digit+[\]] {check_rc_selector(self.text)}
+    : [Rr][[]Digit+[\]][Cc][[]Digit+[\]] {check_rc_selector(self.text)}?
     ;
 
 SHEETNAME

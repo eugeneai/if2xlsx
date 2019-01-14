@@ -7,71 +7,70 @@ import sys
 
 def serializedATN():
     with StringIO() as buf:
-        buf.write("\3\u608b\ua72a\u8133\ub9ed\u417c\u3be7\u7786\u5964\3\61")
-        buf.write("\u00af\4\2\t\2\4\3\t\3\4\4\t\4\4\5\t\5\4\6\t\6\4\7\t\7")
+        buf.write("\3\u608b\ua72a\u8133\ub9ed\u417c\u3be7\u7786\u5964\3/")
+        buf.write("\u00b0\4\2\t\2\4\3\t\3\4\4\t\4\4\5\t\5\4\6\t\6\4\7\t\7")
         buf.write("\4\b\t\b\4\t\t\t\4\n\t\n\4\13\t\13\4\f\t\f\4\r\t\r\4\16")
-        buf.write("\t\16\4\17\t\17\4\20\t\20\4\21\t\21\4\22\t\22\3\2\5\2")
-        buf.write("&\n\2\3\2\3\2\3\2\3\3\3\3\5\3-\n\3\3\3\7\3\60\n\3\f\3")
-        buf.write("\16\3\63\13\3\3\4\3\4\3\4\3\4\3\4\3\4\3\4\3\4\3\4\3\4")
-        buf.write("\3\4\3\4\3\4\3\4\3\4\3\4\3\4\3\4\3\4\3\4\3\4\3\4\3\4\5")
-        buf.write("\4L\n\4\3\4\3\4\3\4\3\4\3\4\3\4\3\4\3\4\3\4\3\4\3\4\3")
+        buf.write("\t\16\4\17\t\17\4\20\t\20\4\21\t\21\4\22\t\22\4\23\t\23")
+        buf.write("\4\24\t\24\3\2\5\2*\n\2\3\2\3\2\3\2\3\3\3\3\5\3\61\n\3")
+        buf.write("\3\3\7\3\64\n\3\f\3\16\3\67\13\3\3\4\3\4\3\4\3\4\3\4\3")
         buf.write("\4\3\4\3\4\3\4\3\4\3\4\3\4\3\4\3\4\3\4\3\4\3\4\3\4\3\4")
-        buf.write("\3\4\3\4\3\4\7\4j\n\4\f\4\16\4m\13\4\3\5\3\5\3\5\3\5\3")
-        buf.write("\5\5\5t\n\5\3\6\3\6\3\6\3\6\5\6z\n\6\3\6\3\6\3\6\5\6\177")
-        buf.write("\n\6\5\6\u0081\n\6\3\6\3\6\3\6\7\6\u0086\n\6\f\6\16\6")
-        buf.write("\u0089\13\6\3\7\3\7\5\7\u008d\n\7\3\7\7\7\u0090\n\7\f")
-        buf.write("\7\16\7\u0093\13\7\3\b\3\b\3\b\3\b\3\b\3\b\3\t\3\t\3\n")
-        buf.write("\3\n\3\13\3\13\3\f\3\f\3\r\3\r\3\16\3\16\3\17\3\17\3\20")
-        buf.write("\3\20\3\21\3\21\3\22\3\22\3\22\2\4\6\n\23\2\4\6\b\n\f")
-        buf.write("\16\20\22\24\26\30\32\34\36 \"\2\t\4\2\3\3\23\30\3\2\31")
-        buf.write("\32\3\2\33\36\3\2\37#\5\2\32\32!!$%\3\2\'*\3\2/\60\2\u00b9")
-        buf.write("\2%\3\2\2\2\4*\3\2\2\2\6K\3\2\2\2\bn\3\2\2\2\n\u0080\3")
-        buf.write("\2\2\2\f\u008a\3\2\2\2\16\u0094\3\2\2\2\20\u009a\3\2\2")
-        buf.write("\2\22\u009c\3\2\2\2\24\u009e\3\2\2\2\26\u00a0\3\2\2\2")
-        buf.write("\30\u00a2\3\2\2\2\32\u00a4\3\2\2\2\34\u00a6\3\2\2\2\36")
-        buf.write("\u00a8\3\2\2\2 \u00aa\3\2\2\2\"\u00ac\3\2\2\2$&\7\3\2")
-        buf.write("\2%$\3\2\2\2%&\3\2\2\2&\'\3\2\2\2\'(\5\6\4\2()\7\2\2\3")
-        buf.write(")\3\3\2\2\2*\61\5\6\4\2+-\7\4\2\2,+\3\2\2\2,-\3\2\2\2")
-        buf.write("-.\3\2\2\2.\60\5\6\4\2/,\3\2\2\2\60\63\3\2\2\2\61/\3\2")
-        buf.write("\2\2\61\62\3\2\2\2\62\5\3\2\2\2\63\61\3\2\2\2\64\65\b")
-        buf.write("\4\1\2\65L\7\5\2\2\66L\7\6\2\2\67L\7\7\2\289\7\b\2\29")
-        buf.write(":\5\f\7\2:;\7\t\2\2;L\3\2\2\2<L\5\n\6\2=L\5 \21\2>L\5")
-        buf.write("\"\22\2?L\5\b\5\2@A\7\b\2\2AB\5\6\4\2BC\7\t\2\2CL\3\2")
-        buf.write("\2\2DE\7\n\2\2EF\5\6\4\2FG\7\13\2\2GL\3\2\2\2HI\5\34\17")
-        buf.write("\2IJ\5\6\4\tJL\3\2\2\2K\64\3\2\2\2K\66\3\2\2\2K\67\3\2")
-        buf.write("\2\2K8\3\2\2\2K<\3\2\2\2K=\3\2\2\2K>\3\2\2\2K?\3\2\2\2")
-        buf.write("K@\3\2\2\2KD\3\2\2\2KH\3\2\2\2Lk\3\2\2\2MN\f\n\2\2NO\5")
-        buf.write("\36\20\2OP\5\6\4\nPj\3\2\2\2QR\f\b\2\2RS\5\30\r\2ST\5")
-        buf.write("\6\4\tTj\3\2\2\2UV\f\7\2\2VW\5\26\f\2WX\5\6\4\bXj\3\2")
-        buf.write("\2\2YZ\f\6\2\2Z[\5\24\13\2[\\\5\6\4\7\\j\3\2\2\2]^\f\5")
-        buf.write("\2\2^_\5\22\n\2_`\5\6\4\6`j\3\2\2\2ab\f\4\2\2bc\5\20\t")
-        buf.write("\2cd\5\6\4\5dj\3\2\2\2ef\f\3\2\2fg\5\32\16\2gh\5\6\4\4")
-        buf.write("hj\3\2\2\2iM\3\2\2\2iQ\3\2\2\2iU\3\2\2\2iY\3\2\2\2i]\3")
-        buf.write("\2\2\2ia\3\2\2\2ie\3\2\2\2jm\3\2\2\2ki\3\2\2\2kl\3\2\2")
-        buf.write("\2l\7\3\2\2\2mk\3\2\2\2ns\7,\2\2op\7\b\2\2pq\5\4\3\2q")
-        buf.write("r\7\t\2\2rt\3\2\2\2so\3\2\2\2st\3\2\2\2t\t\3\2\2\2uv\b")
-        buf.write("\6\1\2v\u0081\7-\2\2w\u0081\7.\2\2xz\5\16\b\2yx\3\2\2")
-        buf.write("\2yz\3\2\2\2z{\3\2\2\2{~\7,\2\2|}\7\f\2\2}\177\5\n\6\2")
-        buf.write("~|\3\2\2\2~\177\3\2\2\2\177\u0081\3\2\2\2\u0080u\3\2\2")
-        buf.write("\2\u0080w\3\2\2\2\u0080y\3\2\2\2\u0081\u0087\3\2\2\2\u0082")
-        buf.write("\u0083\f\3\2\2\u0083\u0084\7\r\2\2\u0084\u0086\5\n\6\4")
-        buf.write("\u0085\u0082\3\2\2\2\u0086\u0089\3\2\2\2\u0087\u0085\3")
-        buf.write("\2\2\2\u0087\u0088\3\2\2\2\u0088\13\3\2\2\2\u0089\u0087")
-        buf.write("\3\2\2\2\u008a\u0091\5\n\6\2\u008b\u008d\7\4\2\2\u008c")
-        buf.write("\u008b\3\2\2\2\u008c\u008d\3\2\2\2\u008d\u008e\3\2\2\2")
-        buf.write("\u008e\u0090\5\n\6\2\u008f\u008c\3\2\2\2\u0090\u0093\3")
-        buf.write("\2\2\2\u0091\u008f\3\2\2\2\u0091\u0092\3\2\2\2\u0092\r")
-        buf.write("\3\2\2\2\u0093\u0091\3\2\2\2\u0094\u0095\7\16\2\2\u0095")
-        buf.write("\u0096\7,\2\2\u0096\u0097\7\17\2\2\u0097\u0098\7,\2\2")
-        buf.write("\u0098\u0099\7\20\2\2\u0099\17\3\2\2\2\u009a\u009b\7\21")
-        buf.write("\2\2\u009b\21\3\2\2\2\u009c\u009d\7\22\2\2\u009d\23\3")
-        buf.write("\2\2\2\u009e\u009f\t\2\2\2\u009f\25\3\2\2\2\u00a0\u00a1")
-        buf.write("\t\3\2\2\u00a1\27\3\2\2\2\u00a2\u00a3\t\4\2\2\u00a3\31")
-        buf.write("\3\2\2\2\u00a4\u00a5\t\5\2\2\u00a5\33\3\2\2\2\u00a6\u00a7")
-        buf.write("\t\6\2\2\u00a7\35\3\2\2\2\u00a8\u00a9\7&\2\2\u00a9\37")
-        buf.write("\3\2\2\2\u00aa\u00ab\t\7\2\2\u00ab!\3\2\2\2\u00ac\u00ad")
-        buf.write("\t\b\2\2\u00ad#\3\2\2\2\17%,\61Kiksy~\u0080\u0087\u008c")
-        buf.write("\u0091")
+        buf.write("\3\4\5\4M\n\4\3\4\3\4\3\4\3\4\3\4\3\4\3\4\3\4\3\4\3\4")
+        buf.write("\3\4\3\4\3\4\3\4\3\4\3\4\3\4\3\4\3\4\3\4\3\4\3\4\3\4\3")
+        buf.write("\4\3\4\3\4\3\4\3\4\7\4k\n\4\f\4\16\4n\13\4\3\5\3\5\3\5")
+        buf.write("\3\5\3\5\3\6\5\6v\n\6\3\6\5\6y\n\6\3\6\3\6\3\7\3\7\3\b")
+        buf.write("\3\b\3\b\5\b\u0082\n\b\3\b\3\b\3\b\7\b\u0087\n\b\f\b\16")
+        buf.write("\b\u008a\13\b\3\t\3\t\5\t\u008e\n\t\3\t\7\t\u0091\n\t")
+        buf.write("\f\t\16\t\u0094\13\t\3\n\3\n\3\n\3\n\3\n\3\n\3\13\3\13")
+        buf.write("\3\f\3\f\3\r\3\r\3\16\3\16\3\17\3\17\3\20\3\20\3\21\3")
+        buf.write("\21\3\22\3\22\3\23\3\23\3\24\3\24\3\24\2\4\6\16\25\2\4")
+        buf.write("\6\b\n\f\16\20\22\24\26\30\32\34\36 \"$&\2\t\4\2\3\3\17")
+        buf.write("\24\3\2\25\26\3\2\27\32\3\2\33\37\5\2\26\26\35\35 !\3")
+        buf.write("\2#&\3\2-.\2\u00b3\2)\3\2\2\2\4.\3\2\2\2\6L\3\2\2\2\b")
+        buf.write("o\3\2\2\2\nx\3\2\2\2\f|\3\2\2\2\16\u0081\3\2\2\2\20\u008b")
+        buf.write("\3\2\2\2\22\u0095\3\2\2\2\24\u009b\3\2\2\2\26\u009d\3")
+        buf.write("\2\2\2\30\u009f\3\2\2\2\32\u00a1\3\2\2\2\34\u00a3\3\2")
+        buf.write("\2\2\36\u00a5\3\2\2\2 \u00a7\3\2\2\2\"\u00a9\3\2\2\2$")
+        buf.write("\u00ab\3\2\2\2&\u00ad\3\2\2\2(*\7\3\2\2)(\3\2\2\2)*\3")
+        buf.write("\2\2\2*+\3\2\2\2+,\5\6\4\2,-\7\2\2\3-\3\3\2\2\2.\65\5")
+        buf.write("\6\4\2/\61\7\4\2\2\60/\3\2\2\2\60\61\3\2\2\2\61\62\3\2")
+        buf.write("\2\2\62\64\5\6\4\2\63\60\3\2\2\2\64\67\3\2\2\2\65\63\3")
+        buf.write("\2\2\2\65\66\3\2\2\2\66\5\3\2\2\2\67\65\3\2\2\289\b\4")
+        buf.write("\1\29:\7\5\2\2:;\5\20\t\2;<\7\6\2\2<M\3\2\2\2=M\5$\23")
+        buf.write("\2>M\5&\24\2?M\5\b\5\2@M\5\n\6\2AB\7\5\2\2BC\5\6\4\2C")
+        buf.write("D\7\6\2\2DM\3\2\2\2EF\7\7\2\2FG\5\6\4\2GH\7\b\2\2HM\3")
+        buf.write("\2\2\2IJ\5 \21\2JK\5\6\4\tKM\3\2\2\2L8\3\2\2\2L=\3\2\2")
+        buf.write("\2L>\3\2\2\2L?\3\2\2\2L@\3\2\2\2LA\3\2\2\2LE\3\2\2\2L")
+        buf.write("I\3\2\2\2Ml\3\2\2\2NO\f\n\2\2OP\5\"\22\2PQ\5\6\4\nQk\3")
+        buf.write("\2\2\2RS\f\b\2\2ST\5\34\17\2TU\5\6\4\tUk\3\2\2\2VW\f\7")
+        buf.write("\2\2WX\5\32\16\2XY\5\6\4\bYk\3\2\2\2Z[\f\6\2\2[\\\5\30")
+        buf.write("\r\2\\]\5\6\4\7]k\3\2\2\2^_\f\5\2\2_`\5\26\f\2`a\5\6\4")
+        buf.write("\6ak\3\2\2\2bc\f\4\2\2cd\5\24\13\2de\5\6\4\5ek\3\2\2\2")
+        buf.write("fg\f\3\2\2gh\5\36\20\2hi\5\6\4\4ik\3\2\2\2jN\3\2\2\2j")
+        buf.write("R\3\2\2\2jV\3\2\2\2jZ\3\2\2\2j^\3\2\2\2jb\3\2\2\2jf\3")
+        buf.write("\2\2\2kn\3\2\2\2lj\3\2\2\2lm\3\2\2\2m\7\3\2\2\2nl\3\2")
+        buf.write("\2\2op\7)\2\2pq\7\5\2\2qr\5\4\3\2rs\7\6\2\2s\t\3\2\2\2")
+        buf.write("tv\5\22\n\2ut\3\2\2\2uv\3\2\2\2vw\3\2\2\2wy\5\f\7\2xu")
+        buf.write("\3\2\2\2xy\3\2\2\2yz\3\2\2\2z{\5\16\b\2{\13\3\2\2\2|}")
+        buf.write("\7,\2\2}\r\3\2\2\2~\177\b\b\1\2\177\u0082\7*\2\2\u0080")
+        buf.write("\u0082\7+\2\2\u0081~\3\2\2\2\u0081\u0080\3\2\2\2\u0082")
+        buf.write("\u0088\3\2\2\2\u0083\u0084\f\3\2\2\u0084\u0085\7\t\2\2")
+        buf.write("\u0085\u0087\5\16\b\4\u0086\u0083\3\2\2\2\u0087\u008a")
+        buf.write("\3\2\2\2\u0088\u0086\3\2\2\2\u0088\u0089\3\2\2\2\u0089")
+        buf.write("\17\3\2\2\2\u008a\u0088\3\2\2\2\u008b\u0092\5\n\6\2\u008c")
+        buf.write("\u008e\7\4\2\2\u008d\u008c\3\2\2\2\u008d\u008e\3\2\2\2")
+        buf.write("\u008e\u008f\3\2\2\2\u008f\u0091\5\n\6\2\u0090\u008d\3")
+        buf.write("\2\2\2\u0091\u0094\3\2\2\2\u0092\u0090\3\2\2\2\u0092\u0093")
+        buf.write("\3\2\2\2\u0093\21\3\2\2\2\u0094\u0092\3\2\2\2\u0095\u0096")
+        buf.write("\7\n\2\2\u0096\u0097\7(\2\2\u0097\u0098\7\13\2\2\u0098")
+        buf.write("\u0099\7(\2\2\u0099\u009a\7\f\2\2\u009a\23\3\2\2\2\u009b")
+        buf.write("\u009c\7\r\2\2\u009c\25\3\2\2\2\u009d\u009e\7\16\2\2\u009e")
+        buf.write("\27\3\2\2\2\u009f\u00a0\t\2\2\2\u00a0\31\3\2\2\2\u00a1")
+        buf.write("\u00a2\t\3\2\2\u00a2\33\3\2\2\2\u00a3\u00a4\t\4\2\2\u00a4")
+        buf.write("\35\3\2\2\2\u00a5\u00a6\t\5\2\2\u00a6\37\3\2\2\2\u00a7")
+        buf.write("\u00a8\t\6\2\2\u00a8!\3\2\2\2\u00a9\u00aa\7\"\2\2\u00aa")
+        buf.write("#\3\2\2\2\u00ab\u00ac\t\7\2\2\u00ac%\3\2\2\2\u00ad\u00ae")
+        buf.write("\t\b\2\2\u00ae\'\3\2\2\2\16)\60\65Ljlux\u0081\u0088\u008d")
+        buf.write("\u0092")
         return buf.getvalue()
 
 
@@ -85,12 +84,11 @@ class ExcelParser ( Parser ):
 
     sharedContextCache = PredictionContextCache()
 
-    literalNames = [ "<INVALID>", "'='", "','", "'nil'", "'false'", "'true'", 
-                     "'('", "')'", "'{'", "'}'", "'!'", "':'", "'['", "'.'", 
-                     "']'", "'or'", "'and'", "'<'", "'>'", "'<='", "'>='", 
-                     "'~='", "'=='", "'+'", "'-'", "'*'", "'/'", "'%'", 
-                     "'//'", "'&'", "'|'", "'~'", "'<<'", "'>>'", "'not'", 
-                     "'#'", "'^'" ]
+    literalNames = [ "<INVALID>", "'='", "','", "'('", "')'", "'{'", "'}'", 
+                     "':'", "'['", "'.'", "']'", "'or'", "'and'", "'<'", 
+                     "'>'", "'<='", "'>='", "'~='", "'=='", "'+'", "'-'", 
+                     "'*'", "'/'", "'%'", "'//'", "'&'", "'|'", "'~'", "'<<'", 
+                     "'>>'", "'not'", "'#'", "'^'" ]
 
     symbolicNames = [ "<INVALID>", "<INVALID>", "<INVALID>", "<INVALID>", 
                       "<INVALID>", "<INVALID>", "<INVALID>", "<INVALID>", 
@@ -100,33 +98,35 @@ class ExcelParser ( Parser ):
                       "<INVALID>", "<INVALID>", "<INVALID>", "<INVALID>", 
                       "<INVALID>", "<INVALID>", "<INVALID>", "<INVALID>", 
                       "<INVALID>", "<INVALID>", "<INVALID>", "<INVALID>", 
-                      "<INVALID>", "<INVALID>", "<INVALID>", "<INVALID>", 
                       "<INVALID>", "INT", "HEX", "FLOAT", "HEX_FLOAT", "SHEBANG", 
-                      "NAME", "ASELECTOR", "RCSELECTOR", "NORMALSTRING", 
-                      "CHARSTRING", "WS" ]
+                      "NAME", "FUNCNAME", "ASELECTOR", "RCSELECTOR", "SHEETNAME", 
+                      "NORMALSTRING", "CHARSTRING", "WS" ]
 
     RULE_chunk = 0
     RULE_explist = 1
     RULE_exp = 2
-    RULE_varOrFuncCall = 3
+    RULE_funcCall = 3
     RULE_selector = 4
-    RULE_selList = 5
-    RULE_xlTable = 6
-    RULE_operatorOr = 7
-    RULE_operatorAnd = 8
-    RULE_operatorComparison = 9
-    RULE_operatorAddSub = 10
-    RULE_operatorMulDivMod = 11
-    RULE_operatorBitwise = 12
-    RULE_operatorUnary = 13
-    RULE_operatorPower = 14
-    RULE_number = 15
-    RULE_string = 16
+    RULE_sheetname = 5
+    RULE_localSel = 6
+    RULE_selList = 7
+    RULE_xlTable = 8
+    RULE_operatorOr = 9
+    RULE_operatorAnd = 10
+    RULE_operatorComparison = 11
+    RULE_operatorAddSub = 12
+    RULE_operatorMulDivMod = 13
+    RULE_operatorBitwise = 14
+    RULE_operatorUnary = 15
+    RULE_operatorPower = 16
+    RULE_number = 17
+    RULE_string = 18
 
-    ruleNames =  [ "chunk", "explist", "exp", "varOrFuncCall", "selector", 
-                   "selList", "xlTable", "operatorOr", "operatorAnd", "operatorComparison", 
-                   "operatorAddSub", "operatorMulDivMod", "operatorBitwise", 
-                   "operatorUnary", "operatorPower", "number", "string" ]
+    ruleNames =  [ "chunk", "explist", "exp", "funcCall", "selector", "sheetname", 
+                   "localSel", "selList", "xlTable", "operatorOr", "operatorAnd", 
+                   "operatorComparison", "operatorAddSub", "operatorMulDivMod", 
+                   "operatorBitwise", "operatorUnary", "operatorPower", 
+                   "number", "string" ]
 
     EOF = Token.EOF
     T__0=1
@@ -161,21 +161,19 @@ class ExcelParser ( Parser ):
     T__29=30
     T__30=31
     T__31=32
-    T__32=33
-    T__33=34
-    T__34=35
-    T__35=36
-    INT=37
-    HEX=38
-    FLOAT=39
-    HEX_FLOAT=40
-    SHEBANG=41
-    NAME=42
-    ASELECTOR=43
-    RCSELECTOR=44
-    NORMALSTRING=45
-    CHARSTRING=46
-    WS=47
+    INT=33
+    HEX=34
+    FLOAT=35
+    HEX_FLOAT=36
+    SHEBANG=37
+    NAME=38
+    FUNCNAME=39
+    ASELECTOR=40
+    RCSELECTOR=41
+    SHEETNAME=42
+    NORMALSTRING=43
+    CHARSTRING=44
+    WS=45
 
     def __init__(self, input:TokenStream, output:TextIO = sys.stdout):
         super().__init__(input, output)
@@ -219,17 +217,17 @@ class ExcelParser ( Parser ):
         self._la = 0 # Token type
         try:
             self.enterOuterAlt(localctx, 1)
-            self.state = 35
+            self.state = 39
             self._errHandler.sync(self)
             _la = self._input.LA(1)
             if _la==ExcelParser.T__0:
-                self.state = 34
+                self.state = 38
                 self.match(ExcelParser.T__0)
 
 
-            self.state = 37
+            self.state = 41
             self.exp(0)
-            self.state = 38
+            self.state = 42
             self.match(ExcelParser.EOF)
         except RecognitionException as re:
             localctx.exception = re
@@ -273,23 +271,23 @@ class ExcelParser ( Parser ):
         self._la = 0 # Token type
         try:
             self.enterOuterAlt(localctx, 1)
-            self.state = 40
+            self.state = 44
             self.exp(0)
-            self.state = 47
+            self.state = 51
             self._errHandler.sync(self)
             _la = self._input.LA(1)
-            while (((_la) & ~0x3f) == 0 and ((1 << _la) & ((1 << ExcelParser.T__1) | (1 << ExcelParser.T__2) | (1 << ExcelParser.T__3) | (1 << ExcelParser.T__4) | (1 << ExcelParser.T__5) | (1 << ExcelParser.T__7) | (1 << ExcelParser.T__11) | (1 << ExcelParser.T__23) | (1 << ExcelParser.T__30) | (1 << ExcelParser.T__33) | (1 << ExcelParser.T__34) | (1 << ExcelParser.INT) | (1 << ExcelParser.HEX) | (1 << ExcelParser.FLOAT) | (1 << ExcelParser.HEX_FLOAT) | (1 << ExcelParser.NAME) | (1 << ExcelParser.ASELECTOR) | (1 << ExcelParser.RCSELECTOR) | (1 << ExcelParser.NORMALSTRING) | (1 << ExcelParser.CHARSTRING))) != 0):
-                self.state = 42
+            while (((_la) & ~0x3f) == 0 and ((1 << _la) & ((1 << ExcelParser.T__1) | (1 << ExcelParser.T__2) | (1 << ExcelParser.T__4) | (1 << ExcelParser.T__7) | (1 << ExcelParser.T__19) | (1 << ExcelParser.T__26) | (1 << ExcelParser.T__29) | (1 << ExcelParser.T__30) | (1 << ExcelParser.INT) | (1 << ExcelParser.HEX) | (1 << ExcelParser.FLOAT) | (1 << ExcelParser.HEX_FLOAT) | (1 << ExcelParser.FUNCNAME) | (1 << ExcelParser.ASELECTOR) | (1 << ExcelParser.RCSELECTOR) | (1 << ExcelParser.SHEETNAME) | (1 << ExcelParser.NORMALSTRING) | (1 << ExcelParser.CHARSTRING))) != 0):
+                self.state = 46
                 self._errHandler.sync(self)
                 _la = self._input.LA(1)
                 if _la==ExcelParser.T__1:
-                    self.state = 41
+                    self.state = 45
                     self.match(ExcelParser.T__1)
 
 
-                self.state = 44
+                self.state = 48
                 self.exp(0)
-                self.state = 49
+                self.state = 53
                 self._errHandler.sync(self)
                 _la = self._input.LA(1)
 
@@ -311,10 +309,6 @@ class ExcelParser ( Parser ):
             return self.getTypedRuleContext(ExcelParser.SelListContext,0)
 
 
-        def selector(self):
-            return self.getTypedRuleContext(ExcelParser.SelectorContext,0)
-
-
         def number(self):
             return self.getTypedRuleContext(ExcelParser.NumberContext,0)
 
@@ -323,8 +317,12 @@ class ExcelParser ( Parser ):
             return self.getTypedRuleContext(ExcelParser.StringContext,0)
 
 
-        def varOrFuncCall(self):
-            return self.getTypedRuleContext(ExcelParser.VarOrFuncCallContext,0)
+        def funcCall(self):
+            return self.getTypedRuleContext(ExcelParser.FuncCallContext,0)
+
+
+        def selector(self):
+            return self.getTypedRuleContext(ExcelParser.SelectorContext,0)
 
 
         def exp(self, i:int=None):
@@ -388,81 +386,66 @@ class ExcelParser ( Parser ):
         self.enterRecursionRule(localctx, 4, self.RULE_exp, _p)
         try:
             self.enterOuterAlt(localctx, 1)
-            self.state = 73
+            self.state = 74
             self._errHandler.sync(self)
             la_ = self._interp.adaptivePredict(self._input,3,self._ctx)
             if la_ == 1:
-                self.state = 51
+                self.state = 55
                 self.match(ExcelParser.T__2)
-                pass
-
-            elif la_ == 2:
-                self.state = 52
+                self.state = 56
+                self.selList()
+                self.state = 57
                 self.match(ExcelParser.T__3)
                 pass
 
-            elif la_ == 3:
-                self.state = 53
-                self.match(ExcelParser.T__4)
-                pass
-
-            elif la_ == 4:
-                self.state = 54
-                self.match(ExcelParser.T__5)
-                self.state = 55
-                self.selList()
-                self.state = 56
-                self.match(ExcelParser.T__6)
-                pass
-
-            elif la_ == 5:
-                self.state = 58
-                self.selector(0)
-                pass
-
-            elif la_ == 6:
+            elif la_ == 2:
                 self.state = 59
                 self.number()
                 pass
 
-            elif la_ == 7:
+            elif la_ == 3:
                 self.state = 60
                 self.string()
                 pass
 
-            elif la_ == 8:
+            elif la_ == 4:
                 self.state = 61
-                self.varOrFuncCall()
+                self.funcCall()
                 pass
 
-            elif la_ == 9:
+            elif la_ == 5:
                 self.state = 62
-                self.match(ExcelParser.T__5)
+                self.selector()
+                pass
+
+            elif la_ == 6:
                 self.state = 63
-                self.exp(0)
+                self.match(ExcelParser.T__2)
                 self.state = 64
-                self.match(ExcelParser.T__6)
-                pass
-
-            elif la_ == 10:
-                self.state = 66
-                self.match(ExcelParser.T__7)
-                self.state = 67
                 self.exp(0)
-                self.state = 68
-                self.match(ExcelParser.T__8)
+                self.state = 65
+                self.match(ExcelParser.T__3)
                 pass
 
-            elif la_ == 11:
-                self.state = 70
-                self.operatorUnary()
+            elif la_ == 7:
+                self.state = 67
+                self.match(ExcelParser.T__4)
+                self.state = 68
+                self.exp(0)
+                self.state = 69
+                self.match(ExcelParser.T__5)
+                pass
+
+            elif la_ == 8:
                 self.state = 71
+                self.operatorUnary()
+                self.state = 72
                 self.exp(7)
                 pass
 
 
             self._ctx.stop = self._input.LT(-1)
-            self.state = 105
+            self.state = 106
             self._errHandler.sync(self)
             _alt = self._interp.adaptivePredict(self._input,5,self._ctx)
             while _alt!=2 and _alt!=ATN.INVALID_ALT_NUMBER:
@@ -470,102 +453,102 @@ class ExcelParser ( Parser ):
                     if self._parseListeners is not None:
                         self.triggerExitRuleEvent()
                     _prevctx = localctx
-                    self.state = 103
+                    self.state = 104
                     self._errHandler.sync(self)
                     la_ = self._interp.adaptivePredict(self._input,4,self._ctx)
                     if la_ == 1:
                         localctx = ExcelParser.ExpContext(self, _parentctx, _parentState)
                         self.pushNewRecursionContext(localctx, _startState, self.RULE_exp)
-                        self.state = 75
+                        self.state = 76
                         if not self.precpred(self._ctx, 8):
                             from antlr4.error.Errors import FailedPredicateException
                             raise FailedPredicateException(self, "self.precpred(self._ctx, 8)")
-                        self.state = 76
-                        self.operatorPower()
                         self.state = 77
+                        self.operatorPower()
+                        self.state = 78
                         self.exp(8)
                         pass
 
                     elif la_ == 2:
                         localctx = ExcelParser.ExpContext(self, _parentctx, _parentState)
                         self.pushNewRecursionContext(localctx, _startState, self.RULE_exp)
-                        self.state = 79
+                        self.state = 80
                         if not self.precpred(self._ctx, 6):
                             from antlr4.error.Errors import FailedPredicateException
                             raise FailedPredicateException(self, "self.precpred(self._ctx, 6)")
-                        self.state = 80
-                        self.operatorMulDivMod()
                         self.state = 81
+                        self.operatorMulDivMod()
+                        self.state = 82
                         self.exp(7)
                         pass
 
                     elif la_ == 3:
                         localctx = ExcelParser.ExpContext(self, _parentctx, _parentState)
                         self.pushNewRecursionContext(localctx, _startState, self.RULE_exp)
-                        self.state = 83
+                        self.state = 84
                         if not self.precpred(self._ctx, 5):
                             from antlr4.error.Errors import FailedPredicateException
                             raise FailedPredicateException(self, "self.precpred(self._ctx, 5)")
-                        self.state = 84
-                        self.operatorAddSub()
                         self.state = 85
+                        self.operatorAddSub()
+                        self.state = 86
                         self.exp(6)
                         pass
 
                     elif la_ == 4:
                         localctx = ExcelParser.ExpContext(self, _parentctx, _parentState)
                         self.pushNewRecursionContext(localctx, _startState, self.RULE_exp)
-                        self.state = 87
+                        self.state = 88
                         if not self.precpred(self._ctx, 4):
                             from antlr4.error.Errors import FailedPredicateException
                             raise FailedPredicateException(self, "self.precpred(self._ctx, 4)")
-                        self.state = 88
-                        self.operatorComparison()
                         self.state = 89
+                        self.operatorComparison()
+                        self.state = 90
                         self.exp(5)
                         pass
 
                     elif la_ == 5:
                         localctx = ExcelParser.ExpContext(self, _parentctx, _parentState)
                         self.pushNewRecursionContext(localctx, _startState, self.RULE_exp)
-                        self.state = 91
+                        self.state = 92
                         if not self.precpred(self._ctx, 3):
                             from antlr4.error.Errors import FailedPredicateException
                             raise FailedPredicateException(self, "self.precpred(self._ctx, 3)")
-                        self.state = 92
-                        self.operatorAnd()
                         self.state = 93
+                        self.operatorAnd()
+                        self.state = 94
                         self.exp(4)
                         pass
 
                     elif la_ == 6:
                         localctx = ExcelParser.ExpContext(self, _parentctx, _parentState)
                         self.pushNewRecursionContext(localctx, _startState, self.RULE_exp)
-                        self.state = 95
+                        self.state = 96
                         if not self.precpred(self._ctx, 2):
                             from antlr4.error.Errors import FailedPredicateException
                             raise FailedPredicateException(self, "self.precpred(self._ctx, 2)")
-                        self.state = 96
-                        self.operatorOr()
                         self.state = 97
+                        self.operatorOr()
+                        self.state = 98
                         self.exp(3)
                         pass
 
                     elif la_ == 7:
                         localctx = ExcelParser.ExpContext(self, _parentctx, _parentState)
                         self.pushNewRecursionContext(localctx, _startState, self.RULE_exp)
-                        self.state = 99
+                        self.state = 100
                         if not self.precpred(self._ctx, 1):
                             from antlr4.error.Errors import FailedPredicateException
                             raise FailedPredicateException(self, "self.precpred(self._ctx, 1)")
-                        self.state = 100
-                        self.operatorBitwise()
                         self.state = 101
+                        self.operatorBitwise()
+                        self.state = 102
                         self.exp(2)
                         pass
 
              
-                self.state = 107
+                self.state = 108
                 self._errHandler.sync(self)
                 _alt = self._interp.adaptivePredict(self._input,5,self._ctx)
 
@@ -577,53 +560,47 @@ class ExcelParser ( Parser ):
             self.unrollRecursionContexts(_parentctx)
         return localctx
 
-    class VarOrFuncCallContext(ParserRuleContext):
+    class FuncCallContext(ParserRuleContext):
 
         def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
             super().__init__(parent, invokingState)
             self.parser = parser
 
-        def NAME(self):
-            return self.getToken(ExcelParser.NAME, 0)
+        def FUNCNAME(self):
+            return self.getToken(ExcelParser.FUNCNAME, 0)
 
         def explist(self):
             return self.getTypedRuleContext(ExcelParser.ExplistContext,0)
 
 
         def getRuleIndex(self):
-            return ExcelParser.RULE_varOrFuncCall
+            return ExcelParser.RULE_funcCall
 
         def enterRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "enterVarOrFuncCall" ):
-                listener.enterVarOrFuncCall(self)
+            if hasattr( listener, "enterFuncCall" ):
+                listener.enterFuncCall(self)
 
         def exitRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "exitVarOrFuncCall" ):
-                listener.exitVarOrFuncCall(self)
+            if hasattr( listener, "exitFuncCall" ):
+                listener.exitFuncCall(self)
 
 
 
 
-    def varOrFuncCall(self):
+    def funcCall(self):
 
-        localctx = ExcelParser.VarOrFuncCallContext(self, self._ctx, self.state)
-        self.enterRule(localctx, 6, self.RULE_varOrFuncCall)
+        localctx = ExcelParser.FuncCallContext(self, self._ctx, self.state)
+        self.enterRule(localctx, 6, self.RULE_funcCall)
         try:
             self.enterOuterAlt(localctx, 1)
-            self.state = 108
-            self.match(ExcelParser.NAME)
-            self.state = 113
-            self._errHandler.sync(self)
-            la_ = self._interp.adaptivePredict(self._input,6,self._ctx)
-            if la_ == 1:
-                self.state = 109
-                self.match(ExcelParser.T__5)
-                self.state = 110
-                self.explist()
-                self.state = 111
-                self.match(ExcelParser.T__6)
-
-
+            self.state = 109
+            self.match(ExcelParser.FUNCNAME)
+            self.state = 110
+            self.match(ExcelParser.T__2)
+            self.state = 111
+            self.explist()
+            self.state = 112
+            self.match(ExcelParser.T__3)
         except RecognitionException as re:
             localctx.exception = re
             self._errHandler.reportError(self, re)
@@ -638,24 +615,16 @@ class ExcelParser ( Parser ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
-        def ASELECTOR(self):
-            return self.getToken(ExcelParser.ASELECTOR, 0)
+        def localSel(self):
+            return self.getTypedRuleContext(ExcelParser.LocalSelContext,0)
 
-        def RCSELECTOR(self):
-            return self.getToken(ExcelParser.RCSELECTOR, 0)
 
-        def NAME(self):
-            return self.getToken(ExcelParser.NAME, 0)
+        def sheetname(self):
+            return self.getTypedRuleContext(ExcelParser.SheetnameContext,0)
+
 
         def xlTable(self):
             return self.getTypedRuleContext(ExcelParser.XlTableContext,0)
-
-
-        def selector(self, i:int=None):
-            if i is None:
-                return self.getTypedRuleContexts(ExcelParser.SelectorContext)
-            else:
-                return self.getTypedRuleContext(ExcelParser.SelectorContext,i)
 
 
         def getRuleIndex(self):
@@ -671,74 +640,156 @@ class ExcelParser ( Parser ):
 
 
 
-    def selector(self, _p:int=0):
-        _parentctx = self._ctx
-        _parentState = self.state
-        localctx = ExcelParser.SelectorContext(self, self._ctx, _parentState)
-        _prevctx = localctx
-        _startState = 8
-        self.enterRecursionRule(localctx, 8, self.RULE_selector, _p)
+
+    def selector(self):
+
+        localctx = ExcelParser.SelectorContext(self, self._ctx, self.state)
+        self.enterRule(localctx, 8, self.RULE_selector)
         self._la = 0 # Token type
         try:
             self.enterOuterAlt(localctx, 1)
-            self.state = 126
+            self.state = 118
             self._errHandler.sync(self)
-            token = self._input.LA(1)
-            if token in [ExcelParser.ASELECTOR]:
-                self.state = 116
-                self.match(ExcelParser.ASELECTOR)
-                pass
-            elif token in [ExcelParser.RCSELECTOR]:
-                self.state = 117
-                self.match(ExcelParser.RCSELECTOR)
-                pass
-            elif token in [ExcelParser.T__11, ExcelParser.NAME]:
-                self.state = 119
+            _la = self._input.LA(1)
+            if _la==ExcelParser.T__7 or _la==ExcelParser.SHEETNAME:
+                self.state = 115
                 self._errHandler.sync(self)
                 _la = self._input.LA(1)
-                if _la==ExcelParser.T__11:
-                    self.state = 118
+                if _la==ExcelParser.T__7:
+                    self.state = 114
                     self.xlTable()
 
 
-                self.state = 121
-                self.match(ExcelParser.NAME)
-                self.state = 124
-                self._errHandler.sync(self)
-                la_ = self._interp.adaptivePredict(self._input,8,self._ctx)
-                if la_ == 1:
-                    self.state = 122
-                    self.match(ExcelParser.T__9)
-                    self.state = 123
-                    self.selector(0)
+                self.state = 117
+                self.sheetname()
 
 
+            self.state = 120
+            self.localSel(0)
+        except RecognitionException as re:
+            localctx.exception = re
+            self._errHandler.reportError(self, re)
+            self._errHandler.recover(self, re)
+        finally:
+            self.exitRule()
+        return localctx
+
+    class SheetnameContext(ParserRuleContext):
+
+        def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
+            super().__init__(parent, invokingState)
+            self.parser = parser
+
+        def SHEETNAME(self):
+            return self.getToken(ExcelParser.SHEETNAME, 0)
+
+        def getRuleIndex(self):
+            return ExcelParser.RULE_sheetname
+
+        def enterRule(self, listener:ParseTreeListener):
+            if hasattr( listener, "enterSheetname" ):
+                listener.enterSheetname(self)
+
+        def exitRule(self, listener:ParseTreeListener):
+            if hasattr( listener, "exitSheetname" ):
+                listener.exitSheetname(self)
+
+
+
+
+    def sheetname(self):
+
+        localctx = ExcelParser.SheetnameContext(self, self._ctx, self.state)
+        self.enterRule(localctx, 10, self.RULE_sheetname)
+        try:
+            self.enterOuterAlt(localctx, 1)
+            self.state = 122
+            self.match(ExcelParser.SHEETNAME)
+        except RecognitionException as re:
+            localctx.exception = re
+            self._errHandler.reportError(self, re)
+            self._errHandler.recover(self, re)
+        finally:
+            self.exitRule()
+        return localctx
+
+    class LocalSelContext(ParserRuleContext):
+
+        def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
+            super().__init__(parent, invokingState)
+            self.parser = parser
+
+        def ASELECTOR(self):
+            return self.getToken(ExcelParser.ASELECTOR, 0)
+
+        def RCSELECTOR(self):
+            return self.getToken(ExcelParser.RCSELECTOR, 0)
+
+        def localSel(self, i:int=None):
+            if i is None:
+                return self.getTypedRuleContexts(ExcelParser.LocalSelContext)
+            else:
+                return self.getTypedRuleContext(ExcelParser.LocalSelContext,i)
+
+
+        def getRuleIndex(self):
+            return ExcelParser.RULE_localSel
+
+        def enterRule(self, listener:ParseTreeListener):
+            if hasattr( listener, "enterLocalSel" ):
+                listener.enterLocalSel(self)
+
+        def exitRule(self, listener:ParseTreeListener):
+            if hasattr( listener, "exitLocalSel" ):
+                listener.exitLocalSel(self)
+
+
+
+    def localSel(self, _p:int=0):
+        _parentctx = self._ctx
+        _parentState = self.state
+        localctx = ExcelParser.LocalSelContext(self, self._ctx, _parentState)
+        _prevctx = localctx
+        _startState = 12
+        self.enterRecursionRule(localctx, 12, self.RULE_localSel, _p)
+        try:
+            self.enterOuterAlt(localctx, 1)
+            self.state = 127
+            self._errHandler.sync(self)
+            token = self._input.LA(1)
+            if token in [ExcelParser.ASELECTOR]:
+                self.state = 125
+                self.match(ExcelParser.ASELECTOR)
+                pass
+            elif token in [ExcelParser.RCSELECTOR]:
+                self.state = 126
+                self.match(ExcelParser.RCSELECTOR)
                 pass
             else:
                 raise NoViableAltException(self)
 
             self._ctx.stop = self._input.LT(-1)
-            self.state = 133
+            self.state = 134
             self._errHandler.sync(self)
-            _alt = self._interp.adaptivePredict(self._input,10,self._ctx)
+            _alt = self._interp.adaptivePredict(self._input,9,self._ctx)
             while _alt!=2 and _alt!=ATN.INVALID_ALT_NUMBER:
                 if _alt==1:
                     if self._parseListeners is not None:
                         self.triggerExitRuleEvent()
                     _prevctx = localctx
-                    localctx = ExcelParser.SelectorContext(self, _parentctx, _parentState)
-                    self.pushNewRecursionContext(localctx, _startState, self.RULE_selector)
-                    self.state = 128
+                    localctx = ExcelParser.LocalSelContext(self, _parentctx, _parentState)
+                    self.pushNewRecursionContext(localctx, _startState, self.RULE_localSel)
+                    self.state = 129
                     if not self.precpred(self._ctx, 1):
                         from antlr4.error.Errors import FailedPredicateException
                         raise FailedPredicateException(self, "self.precpred(self._ctx, 1)")
-                    self.state = 129
-                    self.match(ExcelParser.T__10)
                     self.state = 130
-                    self.selector(2) 
-                self.state = 135
+                    self.match(ExcelParser.T__6)
+                    self.state = 131
+                    self.localSel(2) 
+                self.state = 136
                 self._errHandler.sync(self)
-                _alt = self._interp.adaptivePredict(self._input,10,self._ctx)
+                _alt = self._interp.adaptivePredict(self._input,9,self._ctx)
 
         except RecognitionException as re:
             localctx.exception = re
@@ -778,27 +829,27 @@ class ExcelParser ( Parser ):
     def selList(self):
 
         localctx = ExcelParser.SelListContext(self, self._ctx, self.state)
-        self.enterRule(localctx, 10, self.RULE_selList)
+        self.enterRule(localctx, 14, self.RULE_selList)
         self._la = 0 # Token type
         try:
             self.enterOuterAlt(localctx, 1)
-            self.state = 136
-            self.selector(0)
-            self.state = 143
+            self.state = 137
+            self.selector()
+            self.state = 144
             self._errHandler.sync(self)
             _la = self._input.LA(1)
-            while (((_la) & ~0x3f) == 0 and ((1 << _la) & ((1 << ExcelParser.T__1) | (1 << ExcelParser.T__11) | (1 << ExcelParser.NAME) | (1 << ExcelParser.ASELECTOR) | (1 << ExcelParser.RCSELECTOR))) != 0):
-                self.state = 138
+            while (((_la) & ~0x3f) == 0 and ((1 << _la) & ((1 << ExcelParser.T__1) | (1 << ExcelParser.T__7) | (1 << ExcelParser.ASELECTOR) | (1 << ExcelParser.RCSELECTOR) | (1 << ExcelParser.SHEETNAME))) != 0):
+                self.state = 139
                 self._errHandler.sync(self)
                 _la = self._input.LA(1)
                 if _la==ExcelParser.T__1:
-                    self.state = 137
+                    self.state = 138
                     self.match(ExcelParser.T__1)
 
 
-                self.state = 140
-                self.selector(0)
-                self.state = 145
+                self.state = 141
+                self.selector()
+                self.state = 146
                 self._errHandler.sync(self)
                 _la = self._input.LA(1)
 
@@ -839,19 +890,19 @@ class ExcelParser ( Parser ):
     def xlTable(self):
 
         localctx = ExcelParser.XlTableContext(self, self._ctx, self.state)
-        self.enterRule(localctx, 12, self.RULE_xlTable)
+        self.enterRule(localctx, 16, self.RULE_xlTable)
         try:
             self.enterOuterAlt(localctx, 1)
-            self.state = 146
-            self.match(ExcelParser.T__11)
             self.state = 147
-            self.match(ExcelParser.NAME)
+            self.match(ExcelParser.T__7)
             self.state = 148
-            self.match(ExcelParser.T__12)
-            self.state = 149
             self.match(ExcelParser.NAME)
+            self.state = 149
+            self.match(ExcelParser.T__8)
             self.state = 150
-            self.match(ExcelParser.T__13)
+            self.match(ExcelParser.NAME)
+            self.state = 151
+            self.match(ExcelParser.T__9)
         except RecognitionException as re:
             localctx.exception = re
             self._errHandler.reportError(self, re)
@@ -884,11 +935,11 @@ class ExcelParser ( Parser ):
     def operatorOr(self):
 
         localctx = ExcelParser.OperatorOrContext(self, self._ctx, self.state)
-        self.enterRule(localctx, 14, self.RULE_operatorOr)
+        self.enterRule(localctx, 18, self.RULE_operatorOr)
         try:
             self.enterOuterAlt(localctx, 1)
-            self.state = 152
-            self.match(ExcelParser.T__14)
+            self.state = 153
+            self.match(ExcelParser.T__10)
         except RecognitionException as re:
             localctx.exception = re
             self._errHandler.reportError(self, re)
@@ -921,11 +972,11 @@ class ExcelParser ( Parser ):
     def operatorAnd(self):
 
         localctx = ExcelParser.OperatorAndContext(self, self._ctx, self.state)
-        self.enterRule(localctx, 16, self.RULE_operatorAnd)
+        self.enterRule(localctx, 20, self.RULE_operatorAnd)
         try:
             self.enterOuterAlt(localctx, 1)
-            self.state = 154
-            self.match(ExcelParser.T__15)
+            self.state = 155
+            self.match(ExcelParser.T__11)
         except RecognitionException as re:
             localctx.exception = re
             self._errHandler.reportError(self, re)
@@ -958,13 +1009,13 @@ class ExcelParser ( Parser ):
     def operatorComparison(self):
 
         localctx = ExcelParser.OperatorComparisonContext(self, self._ctx, self.state)
-        self.enterRule(localctx, 18, self.RULE_operatorComparison)
+        self.enterRule(localctx, 22, self.RULE_operatorComparison)
         self._la = 0 # Token type
         try:
             self.enterOuterAlt(localctx, 1)
-            self.state = 156
+            self.state = 157
             _la = self._input.LA(1)
-            if not((((_la) & ~0x3f) == 0 and ((1 << _la) & ((1 << ExcelParser.T__0) | (1 << ExcelParser.T__16) | (1 << ExcelParser.T__17) | (1 << ExcelParser.T__18) | (1 << ExcelParser.T__19) | (1 << ExcelParser.T__20) | (1 << ExcelParser.T__21))) != 0)):
+            if not((((_la) & ~0x3f) == 0 and ((1 << _la) & ((1 << ExcelParser.T__0) | (1 << ExcelParser.T__12) | (1 << ExcelParser.T__13) | (1 << ExcelParser.T__14) | (1 << ExcelParser.T__15) | (1 << ExcelParser.T__16) | (1 << ExcelParser.T__17))) != 0)):
                 self._errHandler.recoverInline(self)
             else:
                 self._errHandler.reportMatch(self)
@@ -1001,13 +1052,13 @@ class ExcelParser ( Parser ):
     def operatorAddSub(self):
 
         localctx = ExcelParser.OperatorAddSubContext(self, self._ctx, self.state)
-        self.enterRule(localctx, 20, self.RULE_operatorAddSub)
+        self.enterRule(localctx, 24, self.RULE_operatorAddSub)
         self._la = 0 # Token type
         try:
             self.enterOuterAlt(localctx, 1)
-            self.state = 158
+            self.state = 159
             _la = self._input.LA(1)
-            if not(_la==ExcelParser.T__22 or _la==ExcelParser.T__23):
+            if not(_la==ExcelParser.T__18 or _la==ExcelParser.T__19):
                 self._errHandler.recoverInline(self)
             else:
                 self._errHandler.reportMatch(self)
@@ -1044,13 +1095,13 @@ class ExcelParser ( Parser ):
     def operatorMulDivMod(self):
 
         localctx = ExcelParser.OperatorMulDivModContext(self, self._ctx, self.state)
-        self.enterRule(localctx, 22, self.RULE_operatorMulDivMod)
+        self.enterRule(localctx, 26, self.RULE_operatorMulDivMod)
         self._la = 0 # Token type
         try:
             self.enterOuterAlt(localctx, 1)
-            self.state = 160
+            self.state = 161
             _la = self._input.LA(1)
-            if not((((_la) & ~0x3f) == 0 and ((1 << _la) & ((1 << ExcelParser.T__24) | (1 << ExcelParser.T__25) | (1 << ExcelParser.T__26) | (1 << ExcelParser.T__27))) != 0)):
+            if not((((_la) & ~0x3f) == 0 and ((1 << _la) & ((1 << ExcelParser.T__20) | (1 << ExcelParser.T__21) | (1 << ExcelParser.T__22) | (1 << ExcelParser.T__23))) != 0)):
                 self._errHandler.recoverInline(self)
             else:
                 self._errHandler.reportMatch(self)
@@ -1087,13 +1138,13 @@ class ExcelParser ( Parser ):
     def operatorBitwise(self):
 
         localctx = ExcelParser.OperatorBitwiseContext(self, self._ctx, self.state)
-        self.enterRule(localctx, 24, self.RULE_operatorBitwise)
+        self.enterRule(localctx, 28, self.RULE_operatorBitwise)
         self._la = 0 # Token type
         try:
             self.enterOuterAlt(localctx, 1)
-            self.state = 162
+            self.state = 163
             _la = self._input.LA(1)
-            if not((((_la) & ~0x3f) == 0 and ((1 << _la) & ((1 << ExcelParser.T__28) | (1 << ExcelParser.T__29) | (1 << ExcelParser.T__30) | (1 << ExcelParser.T__31) | (1 << ExcelParser.T__32))) != 0)):
+            if not((((_la) & ~0x3f) == 0 and ((1 << _la) & ((1 << ExcelParser.T__24) | (1 << ExcelParser.T__25) | (1 << ExcelParser.T__26) | (1 << ExcelParser.T__27) | (1 << ExcelParser.T__28))) != 0)):
                 self._errHandler.recoverInline(self)
             else:
                 self._errHandler.reportMatch(self)
@@ -1130,13 +1181,13 @@ class ExcelParser ( Parser ):
     def operatorUnary(self):
 
         localctx = ExcelParser.OperatorUnaryContext(self, self._ctx, self.state)
-        self.enterRule(localctx, 26, self.RULE_operatorUnary)
+        self.enterRule(localctx, 30, self.RULE_operatorUnary)
         self._la = 0 # Token type
         try:
             self.enterOuterAlt(localctx, 1)
-            self.state = 164
+            self.state = 165
             _la = self._input.LA(1)
-            if not((((_la) & ~0x3f) == 0 and ((1 << _la) & ((1 << ExcelParser.T__23) | (1 << ExcelParser.T__30) | (1 << ExcelParser.T__33) | (1 << ExcelParser.T__34))) != 0)):
+            if not((((_la) & ~0x3f) == 0 and ((1 << _la) & ((1 << ExcelParser.T__19) | (1 << ExcelParser.T__26) | (1 << ExcelParser.T__29) | (1 << ExcelParser.T__30))) != 0)):
                 self._errHandler.recoverInline(self)
             else:
                 self._errHandler.reportMatch(self)
@@ -1173,11 +1224,11 @@ class ExcelParser ( Parser ):
     def operatorPower(self):
 
         localctx = ExcelParser.OperatorPowerContext(self, self._ctx, self.state)
-        self.enterRule(localctx, 28, self.RULE_operatorPower)
+        self.enterRule(localctx, 32, self.RULE_operatorPower)
         try:
             self.enterOuterAlt(localctx, 1)
-            self.state = 166
-            self.match(ExcelParser.T__35)
+            self.state = 167
+            self.match(ExcelParser.T__31)
         except RecognitionException as re:
             localctx.exception = re
             self._errHandler.reportError(self, re)
@@ -1221,11 +1272,11 @@ class ExcelParser ( Parser ):
     def number(self):
 
         localctx = ExcelParser.NumberContext(self, self._ctx, self.state)
-        self.enterRule(localctx, 30, self.RULE_number)
+        self.enterRule(localctx, 34, self.RULE_number)
         self._la = 0 # Token type
         try:
             self.enterOuterAlt(localctx, 1)
-            self.state = 168
+            self.state = 169
             _la = self._input.LA(1)
             if not((((_la) & ~0x3f) == 0 and ((1 << _la) & ((1 << ExcelParser.INT) | (1 << ExcelParser.HEX) | (1 << ExcelParser.FLOAT) | (1 << ExcelParser.HEX_FLOAT))) != 0)):
                 self._errHandler.recoverInline(self)
@@ -1269,11 +1320,11 @@ class ExcelParser ( Parser ):
     def string(self):
 
         localctx = ExcelParser.StringContext(self, self._ctx, self.state)
-        self.enterRule(localctx, 32, self.RULE_string)
+        self.enterRule(localctx, 36, self.RULE_string)
         self._la = 0 # Token type
         try:
             self.enterOuterAlt(localctx, 1)
-            self.state = 170
+            self.state = 171
             _la = self._input.LA(1)
             if not(_la==ExcelParser.NORMALSTRING or _la==ExcelParser.CHARSTRING):
                 self._errHandler.recoverInline(self)
@@ -1294,7 +1345,7 @@ class ExcelParser ( Parser ):
         if self._predicates == None:
             self._predicates = dict()
         self._predicates[2] = self.exp_sempred
-        self._predicates[4] = self.selector_sempred
+        self._predicates[6] = self.localSel_sempred
         pred = self._predicates.get(ruleIndex, None)
         if pred is None:
             raise Exception("No predicate with index:" + str(ruleIndex))
@@ -1330,7 +1381,7 @@ class ExcelParser ( Parser ):
                 return self.precpred(self._ctx, 1)
          
 
-    def selector_sempred(self, localctx:SelectorContext, predIndex:int):
+    def localSel_sempred(self, localctx:LocalSelContext, predIndex:int):
             if predIndex == 7:
                 return self.precpred(self._ctx, 1)
          

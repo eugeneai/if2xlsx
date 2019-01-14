@@ -52,6 +52,10 @@ Adopted from Lua.g4 grammar
 
 grammar Excel;
 
+@lexer::header {
+from .check import check_func_name, check_a_selector, check_rc_selector
+}
+
 chunk
     : ('=')? exp EOF
     ;
@@ -61,12 +65,11 @@ explist
     ;
 
 exp
-    : 'nil' | 'false' | 'true'
-    | '(' selList ')'
-    | selector
+    : '(' selList ')'
     | number
     | string
-    | varOrFuncCall
+    | funcCall
+    | selector
     | '(' exp ')'
     | '{' exp '}'
     | <assoc=right> exp operatorPower exp
@@ -79,15 +82,22 @@ exp
     | exp operatorBitwise exp
     ;
 
-varOrFuncCall
-    : NAME ('(' explist ')')?
+funcCall
+    : FUNCNAME '(' explist ')'
     ;
 
 selector
+    : (xlTable? sheetname)? localSel
+    ;
+
+sheetname
+    : SHEETNAME
+    ;
+
+localSel
     : ASELECTOR
     | RCSELECTOR
-    | xlTable? NAME ('!' selector)?
-    | selector ':' selector
+    | localSel ':' localSel
     ;
 
 selList
@@ -196,20 +206,43 @@ SHEBANG
 
 fragment
 SelChar
-    : [a-zA-Z]
+    : [a-zA-Z_]
+    ;
+
+fragment
+IdChar
+    : [a-zA-Z_а-яА-Я]
+    ;
+
+fragment
+IdWord
+    : IdChar  (IdChar | Digit)*
+    ;
+
+fragment
+IdFunc
+    : SelChar (SelChar | Digit | [.])*
     ;
 
 NAME
-    : [a-zA-Z_][a-zA-Z_0-9]*
+    : IdWord
     ;
 
 
+FUNCNAME
+    : IdWord {check_func_name(self.text)}?
+    ;
+
 ASELECTOR
-    : [$]?SelChar+[$]?Digit+
+    : [$]?SelChar+[$]?Digit+ {check_a_selector(self.text)}
     ;
 
 RCSELECTOR
-    : [Rr][[]Digit+[\]][Cc][[]Digit+[\]]
+    : [Rr][[]Digit+[\]][Cc][[]Digit+[\]] {check_rc_selector(self.text)}
+    ;
+
+SHEETNAME
+    : IdWord '!'
     ;
 
 

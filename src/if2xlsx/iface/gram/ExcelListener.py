@@ -35,12 +35,12 @@ class ExcelListener(ParseTreeListener):
         pass
 
 
-    # Enter a parse tree produced by ExcelParser#varOrFuncCall.
-    def enterVarOrFuncCall(self, ctx:ExcelParser.VarOrFuncCallContext):
+    # Enter a parse tree produced by ExcelParser#funcCall.
+    def enterFuncCall(self, ctx:ExcelParser.FuncCallContext):
         pass
 
-    # Exit a parse tree produced by ExcelParser#varOrFuncCall.
-    def exitVarOrFuncCall(self, ctx:ExcelParser.VarOrFuncCallContext):
+    # Exit a parse tree produced by ExcelParser#funcCall.
+    def exitFuncCall(self, ctx:ExcelParser.FuncCallContext):
         pass
 
 
@@ -50,6 +50,24 @@ class ExcelListener(ParseTreeListener):
 
     # Exit a parse tree produced by ExcelParser#selector.
     def exitSelector(self, ctx:ExcelParser.SelectorContext):
+        pass
+
+
+    # Enter a parse tree produced by ExcelParser#sheetname.
+    def enterSheetname(self, ctx:ExcelParser.SheetnameContext):
+        pass
+
+    # Exit a parse tree produced by ExcelParser#sheetname.
+    def exitSheetname(self, ctx:ExcelParser.SheetnameContext):
+        pass
+
+
+    # Enter a parse tree produced by ExcelParser#localSel.
+    def enterLocalSel(self, ctx:ExcelParser.LocalSelContext):
+        pass
+
+    # Exit a parse tree produced by ExcelParser#localSel.
+    def exitLocalSel(self, ctx:ExcelParser.LocalSelContext):
         pass
 
 

@@ -69,15 +69,15 @@ class TestEscelParser(object):
         assert tree is not None
 
     def test_inputs(self):
-        print("-"*20)
+        # print("-"*20)
         error_onece = False
         for f in inputs:
-            print("Input: {}".format(f))
             tree, parser = parse_string(f, add_parser=True)
             if parser.parsing_exception_happened:
+                print("Input: {}".format(f))
                 print("COUNT:", parser.parsing_exception_count)
                 error_onece = True
-            print("Output: {}".format(tree.toStringTree(recog=self.p)))
-            print("-"*20)
+                print("Output: {}".format(tree.toStringTree(recog=self.p)))
+                print("-"*20)
 
         assert not error_onece, "Some expressions failed"

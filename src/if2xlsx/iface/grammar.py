@@ -1,6 +1,7 @@
 from antlr4 import InputStream, CommonTokenStream, FileStream
 from .gram.ExcelLexer import ExcelLexer
 from .gram.ExcelParser import ExcelParser
+from .gram.ExcelVisitor import ExcelVisitor
 from antlr4 import BailErrorStrategy
 from antlr4.error.ErrorStrategy import DefaultErrorStrategy
 import sys
@@ -34,6 +35,14 @@ class ErrorStrategy(DefaultErrorStrategy):
         recognizer.parsing_exception = e
         recognizer.parsing_exception_happened = True
         recognizer.parsing_exception_count += 1
+
+
+class Visitor(ExcelVisitor):
+    """Documentation for Visitor
+    """
+
+    def visitNumber(self, ctx):
+        print("Number:", ctx.INT(), ctx.HEX(), ctx.FLOAT(), ctx.HEX_FLOAT())
 
 
 def create_parser(input_stream):

@@ -1,5 +1,5 @@
 from if2xlsx.iface.grammar import parse_string, parser_helper
-
+from if2xlsx.iface.grammar import Visitor
 
 # Simple test formulae
 inputs = [
@@ -79,5 +79,8 @@ class TestEscelParser(object):
                 error_onece = True
                 print("Output: {}".format(tree.toStringTree(recog=self.p)))
                 print("-"*20)
+            else:
+                visitor=Visitor()
+                visitor.visit(tree)
 
         assert not error_onece, "Some expressions failed"

@@ -121,6 +121,11 @@ localSel
     | INT
     ;
 
+selectorList
+    : selector (','? selector)*
+    | '(' selector (','? selector)* ')'
+    ;
+
 oneCell
     : (xlTable? sheetname)? localSel
     ;

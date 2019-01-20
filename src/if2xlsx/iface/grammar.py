@@ -41,34 +41,42 @@ class Visitor(ExcelVisitor):
     """Documentation for Visitor
     """
 
-    def visitNumber(self, ctx):
-        print("Number:", ctx.INT(), ctx.HEX(), ctx.FLOAT(), ctx.HEX_FLOAT())
+    # def visitNumber(self, ctx):
+    #     print("Number:", ctx.INT(), ctx.HEX(), ctx.FLOAT(), ctx.HEX_FLOAT())
 
 
 def create_parser(input_stream):
 
     lexer = ExcelLexer(input_stream)
     lstream = CommonTokenStream(lexer)
-    parser = Parser(lstream)
+    parser_ = Parser(lstream)
 
-    return parser
+    return parser_
+
+
+def parser(input):
+    if type(input) == str:
+        istream = InputStream(input)
+    else:
+        istream = FileStream(input)
+    return create_parser(istream)
 
 
 def parse_string(input, add_parser=False):
     istream = InputStream(input)
-    parser = create_parser(istream)
-    tree = parser.chunk()
+    parser_ = create_parser(istream)
+    tree = parser_.chunk()
 
     if add_parser:
-        return tree, parser
+        return tree, parser_
     else:
         return tree
 
 
 def parse_file(filelike):
     fstream = FileStream(filelike)
-    parser = create_parser(fstream)
-    tree = parser.chunk()
+    parser_ = create_parser(fstream)
+    tree = parser_.chunk()
 
     return tree
 

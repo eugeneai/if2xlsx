@@ -255,7 +255,7 @@ class WsRels(DirRels):
 
 
 class WorkSheet(LazyLoader):
-    """Defines Worksheet"""
+    """Defines a Worksheet"""
 
     def __init__(self, root, filename, document):
         dfilename = document.filename
@@ -263,6 +263,18 @@ class WorkSheet(LazyLoader):
         filename = os.path.join(name, filename)
         super(WorkSheet, self).__init__(root=root, filename=filename)
         self.document = document
+
+    def select_row(self, refname, absolute=True):
+        """Selects node of the XML referenced by `refname` integer index.
+        Argument `absolute` refers '$'."""
+        refname = int(refname)
+        # query = '/main:worksheet/main:sheetData/main:row[@main:r=="{}"]'\
+        query = '/main:worksheet/main:sheetData/main:row[@r="{}"]'\
+            .format(refname)
+        for node in self.xpath(query):
+            return node
+        else:
+            return None
 
 
 class WorkSheets(OrderedDict):

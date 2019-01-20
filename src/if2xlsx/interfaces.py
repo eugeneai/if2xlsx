@@ -1,4 +1,5 @@
 from zope.interface import Interface, Attribute
+from zope.interface.common.mapping import IMapping
 
 
 class IEditable(Interface):
@@ -45,3 +46,8 @@ class IDocument(Interface):
 
     def save(filename):
         """Save the Spreadsheet into a file"""
+
+
+class IDefMapping(IMapping):
+    """A wrapper around Dictionary implementing
+    name resolving"""

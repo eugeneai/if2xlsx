@@ -8,7 +8,7 @@ from if2xlsx import Document
 from if2xlsx.interfaces import IDocument
 from if2xlsx.iface import register_adapters
 from pprint import pprint
-
+from if2xlsx.iface.grammar import parse_string
 
 INPUT_DIR = os.path.abspath(
     os.path.join(os.path.split(__file__)[0],
@@ -153,3 +153,31 @@ class TestGeneralWriting(object):
     #     wb0.name = 'tbl1'
     #     assert wb0.name == 'tbl1'
     #     self.xldoc.save(OUT_FILE_TEMPLATE.format('renamed-tbl'))
+
+
+class TestExcelGram(TestGeneralWriting):
+
+    def setUp(self):
+        super().setUp()
+        self.ws = self.doc.ws['sheet1']
+        self.defs = self.doc.defines
+
+    def test_get_name(self):
+        d = self.doc
+        assert len(self.defs) > 0
+        rep = d.defines['Повтор']
+        print("Повтор:", rep)
+        prep = d.parsed_defines['Повтор']
+        d.intasrefs(prep)
+        # d.print_ast(prep)
+
+    def test_get_row(self):
+        d = self.doc
+        sh = d.ws['sheet1']
+        row = sh['$3']
+        cell = row['A3']
+        assert cell.index == 'A3'
+        cell = row['1']
+        assert cell.index == 'A3'
+        cell = row[0]
+        assert cell.index == 'A3'

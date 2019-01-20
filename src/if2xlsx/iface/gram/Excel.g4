@@ -103,11 +103,7 @@ funcCall
     ;
 
 selector
-    : (xlTable? sheetname)? localSel (leftSel)?
-    ;
-
-leftSel
-    : (':' localSel)
+    : (xlTable? sheetname)? localSel (':' localSel)?
     ;
 
 sheetname

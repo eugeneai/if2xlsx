@@ -62,15 +62,6 @@ class ExcelListener(ParseTreeListener):
         pass
 
 
-    # Enter a parse tree produced by ExcelParser#leftSel.
-    def enterLeftSel(self, ctx:ExcelParser.LeftSelContext):
-        pass
-
-    # Exit a parse tree produced by ExcelParser#leftSel.
-    def exitLeftSel(self, ctx:ExcelParser.LeftSelContext):
-        pass
-
-
     # Enter a parse tree produced by ExcelParser#sheetname.
     def enterSheetname(self, ctx:ExcelParser.SheetnameContext):
         pass

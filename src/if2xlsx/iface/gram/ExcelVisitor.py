@@ -39,11 +39,6 @@ class ExcelVisitor(ParseTreeVisitor):
         return self.visitChildren(ctx)
 
 
-    # Visit a parse tree produced by ExcelParser#leftSel.
-    def visitLeftSel(self, ctx:ExcelParser.LeftSelContext):
-        return self.visitChildren(ctx)
-
-
     # Visit a parse tree produced by ExcelParser#sheetname.
     def visitSheetname(self, ctx:ExcelParser.SheetnameContext):
         return self.visitChildren(ctx)
